@@ -1,1 +1,72 @@
 
+struct move{
+ int p1;
+ int p2;   
+ int n1;
+ int n2;
+};           // storing the initial and final places
+
+
+
+struct move storered[100000];  // array for storing red moves
+struct move storeblue[100000]; // array for storing blue moves
+int redmoves,bluemoves;        // no of move that are done by each red and blue
+
+void storage(int x1,int y1,int x2,int y2,int redmoves,int bluemoves)
+{
+    if (player == RED)
+    {
+       storered[redmoves].p1 = x1;
+       storered[redmoves].p2 = y1;
+       storered[redmoves].n1 = x2;
+       storered[redmoves].n2 = y2;
+
+       redmoves++;
+    }
+
+
+    if (player == BLUE)
+    {
+       storeblue[bluemoves].p1 = x1;
+       storeblue[bluemoves].p2 = y1;
+       storeblue[bluemoves].n1 = x2;
+       storeblue[bluemoves].n2 = y2;
+
+       bluemoves++;
+    }
+
+}
+
+void review(int redmoves , int bluemoves, struct move storered[100000],struct move storeblue[100000])
+{
+  int i=0;
+  int x1,y1,x2,y2;
+  int copy[10][10]; // creating a new board
+  Makeboard(copy);
+
+  while(i!=redmoves)
+  {
+     x1= storered[i].p1;
+     y1= storered[i].p2;
+     x2= storered[i].n1;
+     y2 =storered[i].n2;
+
+    Logic(RED,x1,y1,x2,y2,copy); // play red move
+    PrintBoard(copy);
+
+    if(i!= bluemoves
+    {
+     x1= storeblue[i].p1;
+     y1= storeblue[i].p2;
+     x2= storeblue[i].n1;
+     y2 =storeblue[i].n2;
+
+     Logic(BLUE,x1,y1,x2,y2,copy); // play blue move
+      PrintBoard(copy);
+    }
+      
+  }
+  /* Could u guys check the code nad tell me if i am missing antything or something is wrong i'll merge 
+      it after its verfified*/ 
+
+}
