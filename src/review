@@ -66,7 +66,7 @@ void review(int redmoves , int bluemoves, struct move storered[100000],struct mo
     }
       
   }
-  /* Could u guys check the code nad tell me if i am missing antything or something is wrong i'll merge 
+  /* Could u guys check the code and tell me if i am missing antything or if something is wrong. I'll merge 
       it after its verfified*/ 
 
 }
