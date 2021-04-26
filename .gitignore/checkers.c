@@ -212,7 +212,7 @@ void UserInput() //accepts user inputs and generates coordinates
 {
     char c1, c2;
     int x1, x2, y1, y2;
-    printf("Enter starting nd destination positions in XX XX format, eg:A1 B2 \n");
+    printf("Enter starting and destination positions in XX XX format, eg:A1 B2 \n");
     scanf("%c%d %c%d", &c1, &y1, &c2, &y2);
 
     x1 = c1 - 64;
