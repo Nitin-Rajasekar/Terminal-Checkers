@@ -1,3 +1,7 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<wchar.h>
+
 void MakeBoard(int arr[10][10]){
     for (int i=0;i<10;i++){                                                         //makes the borders of the 10x10 board
         arr[0][i]=-2;                                                               //unreachable, making it 8x8.
