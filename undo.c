@@ -31,12 +31,12 @@ void storage(int x1, int y1, int x2, int y2, int redmoves, int bluemoves, int pl
     }
 }
 
-void undo(int num_moves, int redmoves, int bluemoves, struct move storered[100000], struct move storeblue[100000])  
+void undo(int num_moves, int redmoves, int bluemoves, struct move storered[100000], struct move storeblue[100000], int board[10][10])  
 {
     int i = 0, j = 0;
     int x1, y1, x2, y2;
-    int copy[10][10]; 
-    MakeBoard(copy);
+    
+    
 
     while (i + j < (redmoves+bluemoves-num_moves))
     {
@@ -47,8 +47,8 @@ void undo(int num_moves, int redmoves, int bluemoves, struct move storered[10000
             x2 = storered[i].n1;
             y2 = storered[i].n2;
 
-            Logic(1, x1, y1, x2, y2, copy); // play player 1's move
-            PrintBoard(copy);
+            Logic(1, x1, y1, x2, y2, board); // play player 1's move
+            PrintBoard(board);
             i++;
         }
 
@@ -59,8 +59,8 @@ void undo(int num_moves, int redmoves, int bluemoves, struct move storered[10000
             x2 = storeblue[j].n1;
             y2 = storeblue[j].n2;
 
-            Logic(2, x1, y1, x2, y2, copy); // play player 2's move
-            PrintBoard(copy);
+            Logic(2, x1, y1, x2, y2, board); // play player 2's move
+            PrintBoard(board);
             j++;
         }
     }
