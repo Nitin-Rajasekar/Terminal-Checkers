@@ -14,9 +14,9 @@ struct move storered[100000];
 struct move storeblue[100000]; 
 int redmoves,bluemoves;        
 
-void storage(int x1,int y1,int x2,int y2,int redmoves,int bluemoves, char player) //added the player variable
+void storage(int x1,int y1,int x2,int y2,int redmoves,int bluemoves, int player) //added the player variable
 {
-    if (player == 'RED')            
+    if (player == 1)            
     {
        storered[redmoves].p1 = x1;
        storered[redmoves].p2 = y1;
@@ -27,7 +27,7 @@ void storage(int x1,int y1,int x2,int y2,int redmoves,int bluemoves, char player
     }
 
 
-    if (player == 'BLUE')           
+    if (player == 2)           
     {
        storeblue[bluemoves].p1 = x1;
        storeblue[bluemoves].p2 = y1;
@@ -54,7 +54,7 @@ void undo(int k, int redmoves, int bluemoves, Moves storered[100000], Moves stor
             x2 = storered->n1;
             y2 = storered->n2;
 
-            Logic(RED, x1, y1, x2, y2, board);
+            Logic(1, x1, y1, x2, y2, board);
 
             i++;
             PrintBoard(board);
@@ -67,7 +67,7 @@ void undo(int k, int redmoves, int bluemoves, Moves storered[100000], Moves stor
             x2 = storeblue->n1;
             y2 = storeblue->n2;
 
-            Logic(BLUE, x1, y1, x2, y2, board);
+            Logic(2, x1, y1, x2, y2, board);
 
             j++;
             PrintBoard(board);
