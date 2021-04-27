@@ -35,7 +35,7 @@ void undo(int num_moves, int redmoves, int bluemoves, struct move storered[10000
 {
     int i = 0, j = 0;
     int x1, y1, x2, y2;
-    
+    MakeBoard(board);
     
 
     while (i + j < (redmoves+bluemoves-num_moves))
