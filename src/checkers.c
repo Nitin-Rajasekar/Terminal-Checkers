@@ -2,6 +2,8 @@
 #include<stdlib.h>
 #include<wchar.h>
 
+int possible_jump;
+
 void MakeBoard(int arr[10][10]){
     for (int i=0;i<10;i++){                                                         //makes the borders of the 10x10 board
         arr[0][i]=-2;                                                               //unreachable, making it 8x8.
@@ -208,6 +210,54 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]){        
             arr[x2][y2] = 4; //creates king for player 2;
     }
 }
+
+void check_possible_jump(int arr[10][10], int player_no) //utility function to check if it is possible for a player to make a jump, in which case a non-jump move would be invalid
+{
+    possible_jump = 0;    //global variable, becomes 1 if a jump is available
+    int i, j;
+    if (player_no == 1)
+    {
+        for (i = 0; i < 10; i++)
+        {
+            for (j = 0; j < 10; j++)
+            {
+                if (arr[i][j] == 1)
+                {
+                    if (arr[i - 1][j - 1] == 2 && arr[i - 2][j - 2] == 0)
+                        possible_jump = 1;
+                    if (arr[i + 1][j + 1] == 2 && arr[i + 2][j + 2] == 0)
+                        possible_jump = 1;
+                    if (arr[i + 1][j - 1] == 2 && arr[i + 2][j - 2] == 0)
+                        possible_jump = 1;
+                    if (arr[i - 1][j + 1] == 2 && arr[i - 2][j + 2] == 0)
+                        possible_jump = 1;
+                }
+            }
+        }
+    }
+
+    else if (player_no == 2)
+    {
+        for (i = 0; i < 10; i++)
+        {
+            for (j = 0; j < 10; j++)
+            {
+                if (arr[i][j] == 2)
+                {
+                    if (arr[i - 1][j - 1] == 1 && arr[i - 2][j - 2] == 0)
+                        possible_jump = 1;
+                    if (arr[i + 1][j + 1] == 1 && arr[i + 2][j + 2] == 0)
+                        possible_jump = 1;
+                    if (arr[i + 1][j - 1] == 1 && arr[i + 2][j - 2] == 0)
+                        possible_jump = 1;
+                    if (arr[i - 1][j + 1] == 1 && arr[i - 2][j + 2] == 0)
+                        possible_jump = 1;
+                }
+            }
+        }
+    }
+}
+
 
 void UserInput() //accepts user inputs and generates coordinates
 {
