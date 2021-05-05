@@ -122,6 +122,8 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]){        
             else /*code for invalid input*/;
         }
         else /*code for invalid input*/;
+        if (x2 == 8 && arr[x2][y2] == 1)
+            arr[x2][y2] = 3; //creates king for player 1
     }
     else if(player==2){
         if(arr[x1][y1]==2){                                                         //non-crowned
@@ -202,6 +204,8 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]){        
             else /*code for invalid input*/;
         }
         else /*code for invalid input*/;
+        if (x2 == 1 && arr[x2][y2] == 2)
+            arr[x2][y2] = 4; //creates king for player 2;
     }
 }
 
