@@ -35,6 +35,21 @@ void MakeBoard(int arr[10][10])
     }
 }
 
+// functions for colouring pieces
+// call the function when we want the next output to be of that colour
+// call reset to reset the colour to white
+void red () {
+  printf("\033[1;31m");
+}
+
+void blue() {
+  printf("\033[1;33m");
+}
+
+void reset () {
+  printf("\033[0m");
+}
+
 void PrintBoard(int arr[10][10])
 {
     printf("\n");
