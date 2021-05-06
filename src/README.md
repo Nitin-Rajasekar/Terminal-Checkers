@@ -1,4 +1,5 @@
 PROJECT : CHECKERS 8*8
+
 REVIEW :
 In this function we are taking a struct consisting of 4 integers p1,p2,n1,n2. Here these 4 integers
 represent the position of the coin on the board before and after making a move 
