@@ -14,7 +14,7 @@ struct move storered[100000];
 struct move storeblue[100000]; 
 int redmoves,bluemoves;        
 
-void storage(int x1,int y1,int x2,int y2,int redmoves,int bluemoves, int player) //added the player variable
+void storage(int x1,int y1,int x2,int y2,int redmoves,int bluemoves, int player) 
 {
     if (player == 1)            
     {
@@ -39,7 +39,7 @@ void storage(int x1,int y1,int x2,int y2,int redmoves,int bluemoves, int player)
 
 }
 
-void undo(int k, int redmoves, int bluemoves, Moves storered[100000], Moves storeblue[100000], int board[10][10])
+void undo(int k, int redmoves, int bluemoves, Moves storered[100000], Moves storeblue[100000], int board[10][10])  // k represents the number of moves the player wants to undo 
 {
     int i, j, x1, x2, y1, y2;
 
@@ -87,5 +87,6 @@ void PlayerConsent(int P1, int P2)    //The undo function would only work when b
     {
         printf("Both players don't agree to undo the moves")
     }
-    
+ 
+    return;
 }
