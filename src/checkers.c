@@ -7,8 +7,8 @@ int jump_made;
 void MakeBoard(int arr[10][10])
 {
     for (int i = 0; i < 10; i++)
-    {                   //makes the borders of the 10x10 board
-        arr[0][i] = -2; //unreachable, making it 8x8.
+    {                           //makes the borders of the 10x10 board
+        arr[0][i] = -2;         //unreachable, making it 8x8 for players.
         arr[9][i] = -2;
         arr[i][0] = -2;
         arr[i][9] = -2;
@@ -52,30 +52,35 @@ void reset () {
 
 void PrintBoard(int arr[10][10])
 {
+    printf("\n\t ");
+    for (int i=1;i<=8;i++){        //printing A-H horizontally for users' convenience
+        printf(" %c ",(char)(i+64));
+    }
     printf("\n");
     for (int i = 1; i < 9; i++)
     {
-        printf("\t");
+        printf("%c\t",9-i);       //printing 8-1 vertically (downwards)
         for (int j = 0; j < 9; j++)
         {
             if (arr[i][j] == -1)
-                printf("\u2588\u2588 ");
+                printf("\u2588\u2588 ");    //opaque block for inacessible squares
             if (arr[i][j] == 0)
-                printf("   ");
+                printf("   ");              //empty
             if (arr[i][j] == 1)
-                printf("\u24D0  ");
+                printf("\u24D0  ");         //player 1
             if (arr[i][j] == 2)
-                printf("\u24D1  ");
+                printf("\u24D1  ");         //player 2
             if (arr[i][j] == 3)
-                printf("\u24B6  ");
+                printf("\u24B6  ");         //player 1 (crown)
             if (arr[i][j] == 4)
-                printf("\u24B7  ");
+                printf("\u24B7  ");         //player 2 (crown)
         }
         printf("\n");
     }
     printf("\n");
 }
 
+//Note: x represents row's position, y represents column's. 
 void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10])
 {                  //player on turn, coordinates are parameters
     jump_made = 0; //becomes 1 if a jump is made
