@@ -49,10 +49,10 @@ void undo(int k, int redmoves, int bluemoves, Moves storered[100000], Moves stor
     {
         if(((i + j) % 2) == 0)
         {
-            x1 = storered->p1;
-            y1 = storered->p2;
-            x2 = storered->n1;
-            y2 = storered->n2;
+            x1 = storered[i].p1;
+            y1 = storered[i].p2;
+            x2 = storered[i].n1;
+            y2 = storered[i].n2;
 
             Logic(1, x1, y1, x2, y2, board);
 
@@ -62,10 +62,10 @@ void undo(int k, int redmoves, int bluemoves, Moves storered[100000], Moves stor
 
         else
         {
-            x1 = storeblue->p1;
-            y1 = storeblue->p2;
-            x2 = storeblue->n1;
-            y2 = storeblue->n2;
+            x1 = storeblue[j].p1;
+            y1 = storeblue[j].p2;
+            x2 = storeblue[j].n1;
+            y2 = storeblue[j].n2;
 
             Logic(2, x1, y1, x2, y2, board);
 
