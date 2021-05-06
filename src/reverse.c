@@ -57,7 +57,6 @@ void undo(int k, int redmoves, int bluemoves, Moves storered[100000], Moves stor
             Logic(1, x1, y1, x2, y2, board);
 
             i++;
-            PrintBoard(board);
         }
 
         else
@@ -70,13 +69,14 @@ void undo(int k, int redmoves, int bluemoves, Moves storered[100000], Moves stor
             Logic(2, x1, y1, x2, y2, board);
 
             j++;
-            PrintBoard(board);
+         
         }
-        
+     
+        PrintBoard(board);
     }
 }
 
-void PlayerConsent(int P1, int P2)    //The undo function would only work when both player 1 and player 2 agree.
+void PlayerConsent(int P1, int P2)                                           //The undo function would only work when both player 1 and player 2 agree.
 {
     if(P1 == 1 && P2 == 1)
     {
