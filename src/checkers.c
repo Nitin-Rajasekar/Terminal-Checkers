@@ -4,6 +4,15 @@
 
 int jump_made;
 
+struct move{
+ int p1;
+ int p2;   
+ int n1;
+ int n2;
+};           // storing the initial and final places
+struct move storered[100000];  // array for storing red moves
+struct move storeblue[100000]; // array for storing blue moves
+
 void MakeBoard(int arr[10][10])
 {
     for (int i = 0; i < 10; i++)
@@ -42,7 +51,7 @@ void red () {
   printf("\033[1;31m");
 }
 
-void blue() {
+void yellow() {
   printf("\033[1;33m");
 }
 
@@ -52,7 +61,8 @@ void reset () {
 
 void Instructions()
 {
-    printf("--------------------------------------INSTRUCTIONS-------------------------------------------------")
+    printf("--------------------------------------INSTRUCTIONS-------------------------------------------------\n");
+    
     printf("TO REVIEW THE GAME PRESS R\n");
     printf("TO VIEW THE RULES PRESS V\n");
     printf("TO UNDO ANY NUMBER OF MOVES PRESS U \n");
@@ -447,11 +457,11 @@ void UserInput_new() //accepts user inputs and generates coordinates
         
         if (ch == 'R')// If the function needed is review the whole game from the starting
         {
-            review(redmoves , bluemoves, storered,storeblue , player_no);
+            //review(redmoves , bluemoves, storered,storeblue , player_no);
         }
         else if (ch == 'V') // To see the rules of the game
         {
-            rules(); //need to create
+            //rules(); //need to create
         }
         else if (ch == 'U') // To undo moves,here u can undo any no of moves,user needs to enter the number of undos they want to do 
         {
@@ -459,7 +469,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
             int num_moves;// number of moves to undo
             scanf("%d", &num_moves);
 
-            undo(num_moves, redmoves, bluemoves, storered, storeblue, board);
+            //undo(num_moves, redmoves, bluemoves, storered, storeblue, board);
        
         }
         else if (ch == 'W')// To see the next possible moves  
@@ -467,7 +477,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
             printf("How many next possible moves would you like to see, enter the number:");
             int n; // The number of next possible moves user wants to see
             scanf("%d", &n);
-            all_possible_moves(); // need to create
+            //all_possible_moves(); // need to create
         }
         else if (ch == 'U')
         {
@@ -487,7 +497,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
        
        //printf("Co-ordinates are %d %d %d %d\n", x1, y1, x2, y2);
         Logic(player_no, x1, x2, y1, y2, arr); // Plays the move
-        storage(x1, y1, x2, y2, redmoves, bluemoves, player_no);  // storing all the moves to be used in other functions  
+       // storage(x1, y1, x2, y2, redmoves, bluemoves, player_no);  // storing all the moves to be used in other functions  
         PrintBoard(arr); // Prints the board
         
         if (player_no == 1 && (jump_made == 0 || check_possible_jump(arr, 1) == 0)) //if a player makes a jump AND could make another he should, so he gets another turn
@@ -510,11 +520,9 @@ void UserInput_new() //accepts user inputs and generates coordinates
    /* while (result_obtained != 1) //result_obtained becomes 1 when a player has won, this functionality has not been implemented yet
     {
         printf("Player %d enter starting and destination positions: ", player_no);
-
         scanf("%c%d %c%d", &c1, &x1, &c2, &x2);
         while (getchar() != '\n') //flush buffer
             ;
-
         y1 = c1 - 64;
         y2 = c2 - 64;
         x1 = 9 - x1;
@@ -527,11 +535,11 @@ void UserInput_new() //accepts user inputs and generates coordinates
         else if (player_no == 2 && (jump_made == 0 || check_possible_jump(arr, 2) == 0))
             player_no = 1;
     }*/
-}
+//}
 
 int main()
 {
-    
+    red();
     printf("   cccccccc     hhh     hhh     eeeeeeeee      cccccccc    kkk    kkk    eeeeeeeee     rrrrrrrrr     sssssssss\n");
     printf("  cccccccc      hhh     hhh     eeeeeeeee     cccccccc     kkk   kkk     eeeeeeeee     rrr    rrr    sssssssss\n");  
     printf(" ccc            hhh     hhh     eee          ccc           kkk  kkk      eee           rrr    rrr    ss\n"); 
@@ -542,10 +550,17 @@ int main()
     printf("   cccccccc     hhh     hhh     eeeeeeeee      cccccccc    kkk   kkk     eeeeeeeee     rrr      rrr  sssssssss\n");
     printf("    cccccccc    hhh     hhh     eeeeeeeee       cccccccc   kkk    kkk    eeeeeeeee     rrr       rrr sssssssss\n");
 
-    
-    printf("THE GAME IS STARTING");
-    Instructions();
-    printf("ENTER X0 X0 FOR INSTRUCTIONS AND OTHER FUNCTIONS");
-
+  
+    reset();
+    printf("\n\n\n\n");
+    yellow();
+    printf("<>---<>-----<>----<>------THE GAME IS STARTING ----<>----<>-----<>-----<>\n");
+    printf("\n\n");
+    //Instructions();
+    printf("*******ENTER X0 X0 FOR INSTRUCTIONS AND OTHER FUNCTIONS*******\n");
+    reset();
+    /* Note-It looks a bit messy need to change it a little bit */ 
     UserInput_new();
 }
+
+
