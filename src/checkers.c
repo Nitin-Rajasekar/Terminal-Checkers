@@ -261,7 +261,7 @@ void PrintBoard(int arr[10][10])
 }
 
 //Note: x represents column, y represents row
-void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might wanna consider making it return 0 or 1 for validity 
+int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might wanna consider making it return 0 or 1 for validity 
 {                  //player on turn, coordinates, board are parameters
 
     
@@ -277,7 +277,7 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                     arr[y1][x1] = 0;
                     arr[y2][x2] = 1;
                 }
-                else /*code for invalid input*/
+                else return 0
                     ;
             }
             else if (y1 - y2 == 2)
@@ -291,7 +291,7 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else /*code for invalid input*/
+                    else return 0
                         ;
                 }
                 else if (x1 - x2 == 2)
@@ -303,13 +303,13 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else /*code for invalid input*/
+                    else return 0
                         ;
                 }
-                else /*code for invalid input*/
+                else return 0
                     ;
             }
-            else /*code for invalid input*/
+            else return 0
                 ;
         }
         else if (arr[x1][y1] == 3)
@@ -321,7 +321,7 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                     arr[y1][x1] = 0;
                     arr[y2][x2] = 3;
                 }
-                else /*code for invalid input*/
+                else return 0
                     ;
             }
             else if (y2 - y1 == 2)
@@ -335,7 +335,7 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else /*code for invalid input*/
+                    else return 0
                         ;
                 }
                 else if (x1 - x2 == 2)      //left
@@ -347,10 +347,10 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else /*code for invalid input*/
+                    else return 0
                         ;
                 }
-                else /*code for invalid input*/
+                else return 0
                     ;
             }
             else if (y1 - y2 == 2)
@@ -364,7 +364,7 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else /*code for invalid input*/
+                    else return 0
                         ;
                 }
                 else if (x1 - x2 == 2)      //left
@@ -376,16 +376,16 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else /*code for invalid input*/
+                    else return 0
                         ;
                 }
-                else /*code for invalid input*/
+                else return 0
                     ;
             }
-            else /*code for invalid input*/
+            else return 0
                 ;
         }
-        else /*code for invalid input*/
+        else return 0
             ;
         if (y2 == 1 && arr[y2][x2] == 1)
         {
@@ -406,7 +406,7 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                     arr[y2][x2] = 2;
                     jump_made = 1;
                 }
-                else /*code for invalid input*/
+                else return 0
                     ;
             }
             else if (y2 - y1 == 2)
@@ -420,7 +420,7 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else /*code for invalid input*/
+                    else return 0
                         ;
                 }
                 else if (x1 - x2 == 2)
@@ -432,13 +432,13 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else /*code for invalid input*/
+                    else return 0
                         ;
                 }
-                else /*code for invalid input*/
+                else return 0
                     ;
             }
-            else /*code for invalid input*/
+            else return 0
                 ;
         }
         else if (arr[y1][x1] == 4)
@@ -450,7 +450,7 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                     arr[y1][x1] = 0;
                     arr[y2][x2] = 4;
                 }
-                else /*code for invalid input*/
+                else return 0
                     ;
             }
             else if (y2 - y1 == 2)
@@ -464,7 +464,7 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else /*code for invalid input*/
+                    else return 0
                         ;
                 }
                 else if (x1 - x2 == 2)  //left
@@ -476,10 +476,10 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else /*code for invalid input*/
+                    else return 0
                         ;
                 }
-                else /*code for invalid input*/
+                else return 0
                     ;
             }
             else if (y1 - y2 == 2)
@@ -493,7 +493,7 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else /*code for invalid input*/
+                    else return 0
                         ;
                 }
                 else if (x1 - x2 == 2)
@@ -505,16 +505,16 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else /*code for invalid input*/
+                    else return 0
                         ;
                 }
-                else /*code for invalid input*/
+                else return 0
                     ;
             }
-            else /*code for invalid input*/
+            else return 0
                 ;
         }
-        else /*code for invalid input*/
+        else return 0
             ;
         if (x2 == 8 && arr[x2][y2] == 2)
         {
@@ -522,6 +522,7 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might 
             jump_made = 0;
         }
     }
+    return 1;
 }
 
 int check_possible_jump(int arr[10][10], int player_no) //utility function to check if it is possible for a player to make a jump, in which case a non-jump move would be invalid
@@ -632,7 +633,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
     char c1, c2;
     int x1, x2, y1, y2;
     int x_store, y_store;
-    int multiple_jump=0; //becomes when on a multiple jump
+    int multiple_jump=0; //becomes 1 when on a multiple jump
     MakeBoard(arr);
     PrintBoard(arr);
 
@@ -642,12 +643,12 @@ void UserInput_new() //accepts user inputs and generates coordinates
     {
         int redmoves = 0;
         int bluemoves = 0;
-
+        retry:
         printf("Player %d enter starting and destination positions: ", player_no);
 
-        scanf("% c%d %c%d", &c1, &x1, &c2, &x2);
+        scanf(" %c%d %c%d", &c1, &y1, &c2, &y2);
 
-        if (c1 == 'X' && x1 == 0 && c2 == 'X' && x2 == 0) // If thre user enters X0 X0 then they get access to the functions
+        if (c1 == 'X' && y1 == 0 && c2 == 'X' && y2 == 0) // If thre user enters X0 X0 then they get access to the functions
         {
             char ch;
             Instructions();    // To help the user we are displaying the Instructions once again
@@ -687,8 +688,9 @@ void UserInput_new() //accepts user inputs and generates coordinates
             while (getchar() != '\n') //flush buffer
                 ;
 
-            y1 = c1 - 64;
-            y2 = c2 - 64;
+            x1 = c1 - 64;             //converting from A-H to 1-8
+            x2 = c2 - 64;
+
 
             //printf("Co-ordinates are %d %d %d %d\n", x1, y1, x2, y2);
             if (check_possible_jump(arr, player_no) == 1 && ((x1 - x2) != 2 && (x2 - x1) != 2))
@@ -704,9 +706,13 @@ void UserInput_new() //accepts user inputs and generates coordinates
                     continue;
                 }
             }
-            Logic(player_no, x1, x2, y1, y2, arr); // Plays the move
+            int valid = Logic(player_no, x1, x2, y1, y2, arr); // Plays the move, stores "valid"
                                                    // storage(x1, y1, x2, y2, redmoves, bluemoves, player_no);  // storing all the moves to be used in other functions
-            PrintBoard(arr);                       // Prints the board
+            if (valid==1)PrintBoard(arr);          // Prints the board
+            else
+            {
+                goto retry;
+            }
 
             if (player_no == 1 && (jump_made == 0 || check_possible_jump_specific(arr, 1, x2, y2) == 0)) //if a player makes a jump AND could make another he should, so he gets another turn
             {
