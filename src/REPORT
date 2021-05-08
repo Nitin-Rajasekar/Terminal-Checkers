@@ -1,1 +1,39 @@
-REPORT
+
+----------REPORT---------
+
+CONTRIBUTORS :
+
+AMEYA SHARMA        - 2020101059
+EVURI INDRA DEEPIKA - 2020101090
+VANSHPREET KOHLI     -2020114014
+NITIN RAJASEKHAR     - 2020101117
+ROHAN NAIN           - 2020102023
+
+DATA STRUCTURES USED :
+
+Arrays
+Structure
+
+FUNCTIONS AND THE DATA STRUCTURES USED :
+
+- MakeBoard
+- printcolour
+- choosecolour
+- player1_colour,player2_colour
+- Instructions
+- Logic
+- check_possible_jump
+- check_possible_jump_specific
+- Check_if_player_lost
+- UserInput_new
+- PrintBoard
+- Undo
+- Reverse
+- Review
+- all_possible_moves
+
+
+
+
+
+
