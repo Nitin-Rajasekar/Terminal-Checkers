@@ -884,8 +884,95 @@ void UserInput_new() //accepts user inputs and generates coordinates
     }
 }
 
-
-
+void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn falls earlier
+{                                                 //lol this brute force is so gonna kill my terminal
+    FILE * moves;
+    moves = fopen("AllPossibleMoves.txt","a");
+    if(k)                                      //This way I can decrement k for each recursion; it'll auto stop.
+    {
+        for (int i=1;i<=8;i++)
+        {
+            for (int j=1;j<=8;j++)                //running this for each square
+            {
+                int copy[10][10];
+                for (int x=0;x<10;x++)
+                {
+                    for (int y=0;y<10;y++)
+                    {
+                        copy[x][y]=arr[x][y];   //creating a copy of the array, which can be modified freely
+                    }
+                }
+                if (copy[i][j]==-1||copy[i][j]==0) continue; //no need to waste time on inoperable blocks
+                if (Logic(player,j,j+1,i,i+1,copy)){         //note that Logic also transforms the board
+                    char x1 = j + 64;
+                    char x2 = j+1 + 64;                      //converting coordinates to input's format
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i+1);
+                    int player2;
+                    if (player==1) player2 = 2;
+                    else player2 = 1;
+                    KPossibleMoves(copy,player2,k-1);
+                }
+                for (int x=0;x<10;x++)
+                {
+                    for (int y=0;y<10;y++)
+                    {
+                        copy[x][y]=arr[x][y];   //resetting the copy
+                    }
+                }
+                if (Logic(player,j,j+1,i,i-1,copy)){         //note that Logic also transforms the board
+                    char x1 = j + 64;
+                    char x2 = j+1 + 64;                      //converting coordinates to input's format
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i-1);
+                    int player2;
+                    if (player==1) player2 = 2;
+                    else player2 = 1;
+                    KPossibleMoves(copy,player2,k-1);
+                }
+                for (int x=0;x<10;x++)
+                {
+                    for (int y=0;y<10;y++)
+                    {
+                        copy[x][y]=arr[x][y];   //resetting the copy
+                    }
+                }
+                if (Logic(player,j,j-1,i,i+1,copy)){         //note that Logic also transforms the board
+                    char x1 = j + 64;
+                    char x2 = j-1 + 64;                      //converting coordinates to input's format
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i+1);
+                    int player2;
+                    if (player==1) player2 = 2;
+                    else player2 = 1;
+                    KPossibleMoves(copy,player2,k-1);
+                }
+                for (int x=0;x<10;x++)
+                {
+                    for (int y=0;y<10;y++)
+                    {
+                        copy[x][y]=arr[x][y];   //resetting the copy
+                    }
+                }
+                if (Logic(player,j,j-1,i,i-1,copy)){         //note that Logic also transforms the board
+                    char x1 = j + 64;
+                    char x2 = j-1 + 64;                      //converting coordinates to input's format
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i-1);
+                    int player2;
+                    if (player==1) player2 = 2;
+                    else player2 = 1;
+                    KPossibleMoves(copy,player2,k-1);
+                }
+                for (int x=0;x<10;x++)
+                {
+                    for (int y=0;y<10;y++)
+                    {
+                        copy[x][y]=arr[x][y];   //resetting the copy
+                    }
+                }
+                /*Need to insert code here for possible jumps. A little more complicated because multiple jumps.*/
+            }
+        }
+    }
+    else fprintf(moves,"\n");   //when k reaches 0, it'll print an extra line to show k possible sequential moves.
+}
 
 int main()
 {
