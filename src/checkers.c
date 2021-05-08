@@ -150,6 +150,30 @@ void reset() // call reset to reset the colour to white
     }
  /*********************************************************************************************************************************/
  /****************************************** End of colour functions **************************************************************/ 
+void storage(int x1,int y1,int x2,int y2,int redmoves,int bluemoves,int player)
+{
+    if (player == 1)
+    {
+       storered[redmoves].p1 = x1;
+       storered[redmoves].p2 = y1;
+       storered[redmoves].n1 = x2;
+       storered[redmoves].n2 = y2;
+
+       redmoves++;
+    }
+
+
+    if (player == 2)
+    {
+       storeblue[bluemoves].p1 = x1;
+       storeblue[bluemoves].p2 = y1;
+       storeblue[bluemoves].n1 = x2;
+       storeblue[bluemoves].n2 = y2;
+
+       bluemoves++;
+    }
+
+}
 
 
 void Instructions()
@@ -575,19 +599,41 @@ int check_possible_jump_specific(int arr[10][10], int player_no, int x, int y) /
 
     return possible_jump;
 }
-/*void UserInput() //accepts user inputs and generates coordinates
+void review(int redmoves , int bluemoves, struct move storered[100000],struct move storeblue[100000])
 {
-    char c1, c2;
-    int x1, x2, y1, y2;
-    printf("Enter starting and destination positions: ");
-    //removed the line specifying format as we'll only print that once.
-    scanf("%c%d %c%d", &c1, &y1, &c2, &y2);
-    x1 = c1 - 64;
-    x2 = c2 - 64;
-    //need to pass the coordinates into a doubly linked list now, each node
-    //of which will be used as input for logic function. Need to preserve the
-    //list for use in functions like review, undo.
-}*/
+  int i=0;
+  int x1,y1,x2,y2;
+  int copy[10][10]; // creating a new board
+  MakeBoard(copy);
+
+  while(i<redmoves)
+  {
+     x1= storered[i].p1;
+     y1= storered[i].p2;
+     x2= storered[i].n1;
+     y2 =storered[i].n2;
+
+    Logic(1,x1,x2,y1,y2,copy); // play red move
+    PrintBoard(copy);
+
+    if(i < bluemoves)
+    {
+     x1= storeblue[i].p1;
+     y1= storeblue[i].p2;
+     x2= storeblue[i].n1;
+     y2 =storeblue[i].n2;
+
+     Logic(2,x1,x2,y1,y2,copy); // play blue move
+     PrintBoard(copy);
+    }
+      i++;
+  }
+  /* Could u guys check the code and tell me if i am missing antything or if something is wrong. I'll merge 
+      it after its verfified*/ 
+
+}
+
+
 int check_if_player_lost(int arr[10][10], int player_no)
 {
     int flag = 1; //becomes zero if player has a move left;
@@ -666,11 +712,12 @@ void UserInput_new() //accepts user inputs and generates coordinates
     
     MakeBoard(arr);
     PrintBoard(arr);
+    int redmoves = 0;
+        int bluemoves = 0;
 
     while (check_if_player_lost(arr, player_no) != 1) //result_obtained becomes 1 when a player has won
     {
-        int redmoves = 0;
-        int bluemoves = 0;
+        
         
     retry:
         printf("Player %d enter starting and destination positions: ", player_no);
@@ -686,7 +733,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
 
             if (ch == 'R') // If the function needed is review the whole game from the starting
             {
-                //review(redmoves , bluemoves, storered,storeblue , player_no);
+                review(redmoves , bluemoves, storered,storeblue );
             }
             else if (ch == 'V') // To see the rules of the game
             {
@@ -735,7 +782,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
                 }
             }
             int valid = Logic(player_no, x1, x2, y1, y2, arr); // Plays the move, stores "valid"
-                                                               // storage(x1, y1, x2, y2, redmoves, bluemoves, player_no);  // storing all the moves to be used in other functions
+            storage(x1, y1, x2, y2, redmoves, bluemoves, player_no);  // storing all the moves to be used in other functions
             if (valid == 1)
                 PrintBoard(arr); // Prints the board
             else
@@ -768,25 +815,8 @@ void UserInput_new() //accepts user inputs and generates coordinates
     }
 }
 
-/* while (result_obtained != 1) //result_obtained becomes 1 when a player has won, this functionality has not been implemented yet
-    {
-        printf("Player %d enter starting and destination positions: ", player_no);
-        scanf("%c%d %c%d", &c1, &x1, &c2, &x2);
-        while (getchar() != '\n') //flush buffer
-            ;
-        y1 = c1 - 64;
-        y2 = c2 - 64;
-        x1 = 9 - x1;
-        x2 = 9 - x2;
-        //printf("Co-ordinates are %d %d %d %d\n", x1, y1, x2, y2);
-        Logic(player_no, x1, x2, y1, y2, arr);
-        PrintBoard(arr);
-        if (player_no == 1 && (jump_made == 0 || check_possible_jump(arr, 1) == 0)) //if a player makes a jump AND could make another he should, so he gets another turn
-            player_no = 2;                                                          //jump_made is global, its 1 if a jump has been made
-        else if (player_no == 2 && (jump_made == 0 || check_possible_jump(arr, 2) == 0))
-            player_no = 1;
-    }*/
-//}
+
+
 
 int main()
 {
@@ -819,3 +849,7 @@ int main()
     /* Note-It looks a bit messy need to change it a little bit */
     UserInput_new();
 }
+
+
+
+
