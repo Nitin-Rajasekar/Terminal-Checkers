@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <wchar.h>
 
-int jump_made;
+
 
 struct move
 {
@@ -13,7 +13,7 @@ struct move
 };                             // storing the initial and final places
 struct move storered[100000];  // array for storing red moves
 struct move storeblue[100000]; // array for storing blue moves
-
+int jump_made;
 void MakeBoard(int arr[10][10])
 {
     for (int i = 0; i < 10; i++)
@@ -523,6 +523,11 @@ void UserInput_new() //accepts user inputs and generates coordinates
             x2 = 9 - x2;
 
             //printf("Co-ordinates are %d %d %d %d\n", x1, y1, x2, y2);
+            if(check_possible_jump(arr,player_no)==1&&((x1-x2)!=2&&(x2-x1)!=2))
+            {
+                printf("If there is an opportunity to jump, one must take it");
+                continue;
+            }
             Logic(player_no, x1, x2, y1, y2, arr); // Plays the move
                                                    // storage(x1, y1, x2, y2, redmoves, bluemoves, player_no);  // storing all the moves to be used in other functions
             PrintBoard(arr);                       // Prints the board
