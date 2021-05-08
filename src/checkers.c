@@ -94,32 +94,32 @@ void reset()
     {
         printf("THE COLOURS AVAILABLE ARE \n\n");
         red();
-        printf("\u2588\u2588 - RED "); // 1
+        printf("\u2588\u2588 - R "); // 1
         yellow();
-        printf("\u2588\u2588 - YELLOW "); // 2
+        printf("\u2588\u2588 - Y "); // 2
         green();
-        printf("\u2588\u2588 - GREEN "); // 3
+        printf("\u2588\u2588 - G "); // 3
         blue();
-        printf("\u2588\u2588 - BLUE\n\n"); // 4
+        printf("\u2588\u2588 - B\n\n"); // 4
         reset();
 
         char colour[7];
         printf("ENTER THE COLOUR YOU WANT\n");
         scanf("%s", colour);
 
-        if (strcmp(colour, "RED") == 0)
+        if (strcmp(colour, "R") == 0)
         {
             return 1;
         }
-        if (strcmp(colour, "YELLOW") == 0)
+        if (strcmp(colour, "Y") == 0)
         {
             return 2;
         }
-        if (strcmp(colour, "GREEN") == 0)
+        if (strcmp(colour, "G") == 0)
         {
             return 3;
         }
-        if (strcmp(colour, "BLUE") == 0)
+        if (strcmp(colour, "B") == 0)
         {
             return 4;
         }
