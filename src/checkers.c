@@ -789,18 +789,18 @@ void UserInput_new() //accepts user inputs and generates coordinates
                 goto retry;
             }
 
-            if (player_no == 1 && (jump_made == 0 || check_possible_jump_specific(arr, 1, x2, y2) == 0)) //if a player makes a jump AND could make another he should, so he gets another turn
+            if (player_no == 1 && (jump_made == 0 || check_possible_jump_specific(arr, 1, y2, x2) == 0)) //if a player makes a jump AND could make another he should, so he gets another turn
             {
                 player_no = 2; // go to the next player
                 redmoves++;    // increasing the number of moves made by red
 
             } //jump_made is global, its 1 if a jump has been made
-            else if (player_no == 2 && (jump_made == 0 || check_possible_jump_specific(arr, 2, x2, y2) == 0))
+            else if (player_no == 2 && (jump_made == 0 || check_possible_jump_specific(arr, 2, y2, x2) == 0))
             {
                 player_no = 1; // go to the next player
                 bluemoves++;   // increasing the number of moves made by blue
             }
-            if (jump_made == 1 && check_possible_jump_specific(arr, player_no, x2, y2) == 1) //player is going to get another turn
+            if (jump_made == 1 && check_possible_jump_specific(arr, player_no, y2, x2) == 1) //player is going to get another turn
             {
                 multiple_jump = 1;
                 x_store = x2;
