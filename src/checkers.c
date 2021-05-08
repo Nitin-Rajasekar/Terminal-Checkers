@@ -43,162 +43,114 @@ void MakeBoard(int arr[10][10])
         }
     }
 }
+/************************************ STARTING OF COLOUR FUNCTIONS ******************************************************/
+/************************************************************************************************************************/
 
 // functions for colouring pieces
-// call the function when we want the next output to be of that colour
-// call reset to reset the colour to white
-void red()
+
+void red()//call the function when we want the output to be red in colour
 {
     printf("\033[1;31m");
 }
 
-void yellow()
+void yellow()//call the function when we want the output to be blue in colour
 {
     printf("\033[1;33m");
 }
 
-void green()
+void green() // call the function when we want the output to be green in colour
 {
     printf("\033[1;32m");
 }
 
-void blue()
+void blue() //call the function when we want the output to be blue in colour
 {
     printf("\033[1;34m");
 }
 
-void reset()
+void reset() // call reset to reset the colour to white
+
 {
     printf("\033[0m");
 }
 
-void printcolour(int colour)
-{
 
-    if (colour == 1)
-        printf("\033[1;31m");
-
-    else if (colour == 2)
-        printf("\033[1;33m");
-
-    else if (colour == 3)
-        printf("\033[1;32m");
-
-    else if (colour == 4)
-        printf("\033[1;34m");
-}
-
-int choosecolour()
-{
-    printf("THE COLOURS AVAILABLE ARE \n\n");
-    red();
-    printf("\u2588\u2588 - R "); // 1
-    yellow();
-    printf("\u2588\u2588 - Y "); // 2
-    green();
-    printf("\u2588\u2588 - G "); // 3
-    blue();
-    printf("\u2588\u2588 - B\n\n"); // 4
-    reset();
-
-    char colour[7];
-    printf("ENTER THE COLOUR YOU WANT\n");
-    scanf("%s", colour);
-
-    if (strcmp(colour, "R") == 0)
+    void printcolour(int colour) // the colour corresponding to the number passed is displayed
     {
-        return 1;
+
+        if (colour == 1) //red
+            printf("\033[1;31m");
+
+         else if (colour == 2)//yellow
+           printf("\033[1;33m");
+
+            else if (colour == 3) // green 
+             printf("\033[1;32m");
+
+             else if (colour == 4) // blue
+               printf("\033[1;34m");
+              
     }
-    if (strcmp(colour, "Y") == 0)
+
+    int choosecolour() 
     {
-        return 2;
-    }
-    if (strcmp(colour, "G") == 0)
-    {
-        return 3;
-    }
-    if (strcmp(colour, "B") == 0)
-    {
-        return 4;
-    }
-}
+        printf("THE COLOURS AVAILABLE ARE \n\n"); // shows the colours available and its code
+        red();
+        printf("\u2588\u2588 - R "); // Red is taken as 1
+        yellow();
+        printf("\u2588\u2588 - Y "); // Yellow is taken as 2
+        green();
+        printf("\u2588\u2588 - G "); // Green is taken 3
+        blue();
+        printf("\u2588\u2588 - B\n\n"); //Blue is taken as 4
+        reset();
 
-int p1_colour, p2_colour;
+        char colour[7];
+        printf("ENTER THE COLOUR YOU WANT\n");
+        scanf("%s", colour); // selection of colour
 
-void player1_colour()
-{
-    p1_colour = choosecolour();
-}
-
-void player2_colour()
-{
-
-    int k = choosecolour();
-    if (k != p1_colour)
-    {
-        p2_colour = k;
-    }
-    else
-    {
-        printf("THE COLOUR IS ALREADY TAKEN CHOOSE ANOTHER \n\n");
-        choosecolour();
-    }
-}
-
-/*void Instructions()
-{
-    printf("--------------------------------------INSTRUCTIONS-------------------------------------------------\n");
-    
-    printf("TO REVIEW THE GAME PRESS R\n");
-    printf("TO VIEW THE RULES PRESS V\n");
-    printf("TO UNDO ANY NUMBER OF MOVES PRESS U \n");
-    printf("TO FIND ALL POSSIBLE MOVES FOR NEXT K MOVES PRESS W \n");
-    printf("TO VIEW THE INSTRUCTIONS PRESS U\n");
-}
-
-
-void PrintBoard(int arr[10][10])
-{
-     reset();
-    printf("\n\t ");
-    for (int i=1;i<=8;i++){        //printing A-H horizontally for users' convenience
-        printf(" %c ",(char)(i+64));
-    }
-    printf("\n");
-    for (int i = 1; i < 9; i++)
-    {
-        printf("%c\t",9-i);       //printing 8-1 vertically (downwards)
-        for (int j = 0; j < 9; j++)
+        if (strcmp(colour, "R") == 0)
         {
-            if (arr[i][j] == -1)
-                printf("\u2588\u2588 ");    //opaque block for inacessible squares
-            if (arr[i][j] == 0)
-                printf("   ");              //empty
-
-                printcolour(p1_colour);
-            if (arr[i][j] == 1)
-                printf("\u24D0  ");         //player 1
-                reset();
-
-                printcolour(p2_colour);
-            if (arr[i][j] == 2)
-                printf("\u24D1  ");         //player 2
-                reset();
-
-                printcolour(p1_colour);
-            if (arr[i][j] == 3)
-                printf("\u24B6  ");         //player 1 (crown)
-                 reset();
-
-                printcolour(p2_colour);
-            if (arr[i][j] == 4)
-                printf("\u24B7  ");         //player 2 (crown)
-                reset();
+            return 1; // if slected colour is red it returns 1
         }
-        printf("\n");
+        if (strcmp(colour, "Y") == 0)
+        {
+            return 2; // if slected colour is yellow it returns 2
+        }
+        if (strcmp(colour, "G") == 0)
+        {
+            return 3; // if slected colour is green it returns 3
+        }
+        if (strcmp(colour, "B") == 0)
+        {
+            return 4; // if slected colour is blue it returns 4
+        }
     }
-    printf("\n");
-}*/
+
+    int p1_colour, p2_colour; // Stores the colour the selected by player1 and player2
+
+    void player1_colour() //player1 to chooses the colour
+    {
+        p1_colour = choosecolour();// p1_colour gets assigned a value based on what colour has been choosen by player1
+    }
+
+    void player2_colour() //  player2 to chooses the colour
+    {
+
+        int k = choosecolour();
+        if (k != p1_colour) // ensures that both players dont select to same colour
+        {
+            p2_colour = k; // p2_colour gets assigned a value based on what colour has been choosen by player2
+        }
+        else // if the colour choosen is the same 
+        {
+            printf("THE COLOUR IS ALREADY TAKEN CHOOSE ANOTHER \n\n");
+            choosecolour();
+        }
+    }
+ /*********************************************************************************************************************************/
+ /****************************************** End of colour functions **************************************************************/ 
+
 
 void Instructions()
 {
@@ -705,19 +657,21 @@ void UserInput_new() //accepts user inputs and generates coordinates
     int arr[10][10];
     int player_no = 1;
     int result_obtained = 0;
+    
     char c1, c2;
+    
     int x1, x2, y1, y2;
     int x_store, y_store;
     int multiple_jump = 0; //becomes 1 when on a multiple jump
+    
     MakeBoard(arr);
     PrintBoard(arr);
-
-    /* Note- Added the extra functions to userinterface, few struct etc we need for other function in the interface,pls check if anything else is missing   */
 
     while (check_if_player_lost(arr, player_no) != 1) //result_obtained becomes 1 when a player has won
     {
         int redmoves = 0;
         int bluemoves = 0;
+        
     retry:
         printf("Player %d enter starting and destination positions: ", player_no);
 
@@ -851,16 +805,16 @@ int main()
     reset();
     printf("\n\n");
 
-    player1_colour();
-    player2_colour();
+    player1_colour(); // Lets player1 decide their colour
+    player2_colour(); // Lets player2 decide their colour
 
     reset();
     printf("\n\n\n\n");
     yellow();
-    printf("<>---<>-----<>----<>------THE GAME IS STARTING ----<>----<>-----<>-----<>\n");
+    printf(" ******************* THE GAME IS STARTING *******************************\n");
     printf("\n\n");
 
-    printf("*******ENTER X0 X0 FOR INSTRUCTIONS AND OTHER FUNCTIONS*******\n");
+    printf("____________ENTER X0 X0 FOR INSTRUCTIONS AND OTHER FUNCTIONS ______________\n");
     reset();
     /* Note-It looks a bit messy need to change it a little bit */
     UserInput_new();
