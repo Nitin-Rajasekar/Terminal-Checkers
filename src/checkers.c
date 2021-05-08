@@ -108,6 +108,7 @@ void reset() // call reset to reset the colour to white
         char colour[7];
         printf("ENTER THE COLOUR YOU WANT\n");
         scanf("%s", colour); // selection of colour
+        printf("\n");
 
         if (strcmp(colour, "R") == 0)
         {
@@ -633,6 +634,59 @@ void review(int redmoves , int bluemoves, struct move storered[100000],struct mo
 
 }
 
+void undo(int k, int redmoves, int bluemoves, struct move storered[100000], struct move storeblue[100000]) // k represents the number of moves the player wants to undo
+{                                                                                                          // redmoves and bluemoves represent the total moves made by player 1 and player 2 resp.
+    int i, j, x1, x2, y1, y2;
+    i = 0;
+    j = 0;
+    int board[10][10];                                    
+
+    MakeBoard(board);
+
+    while ((i + j) < (redmoves + bluemoves - k))      
+    {
+        if (i == j)                       // if i = j = 1, it means it is player 1's turn
+        {
+            x1 = storered[i].p1;
+            y1 = storered[i].p2;
+            x2 = storered[i].n1;
+            y2 = storered[i].n2;
+
+            Logic(1, x1, x2, y1, y2, board);    // play player 1's move
+            PrintBoard(board);
+
+            i++;
+        }
+
+        else if (j < i)                       // if i = 1 and j = 0, or i = 2, j = 1 etc, it means it is player 2's turn
+        {
+            x1 = storeblue[j].p1;
+            y1 = storeblue[j].p2;
+            x2 = storeblue[j].n1;
+            y2 = storeblue[j].n2;
+
+            Logic(2, x1, x2, y1, y2, board); // play player 2's move
+            PrintBoard(board);
+            j++;
+        }
+        
+    }
+}
+
+void rules()
+{
+    yellow();
+    printf("\n*Pieces may only move one diagonal space forward (towards their opponent's pieces) in the beginning of the game.\n");
+    printf("*Pieces must stay on the dark squares\n");
+    printf("*To capture an opposing piece,JUMP over it by moving two diagonal spaces in the direction of the opposing piece.\n");
+    printf("*A piece may jump forward over an opponent's pieces in multiple parts of the board to capture them\n");
+    printf("*Keep in mind, the space on the other side of your opponent’s piece must be empty for you to capture it.\n");
+    printf("*If your piece reaches the last row on your opponent's side, you may re-take one of your captured pieces and CROWN the piece that made it to Kings row, making it a KING PIECE\n");
+    printf("*King pieces may still only move one space at a time during a non-capturing move. However, when capturing an opponent's piece(s) it may move diagonally forward or backwards.\n");
+    printf("*There is no limit to how many king pieces a player may have.\n\n");
+    reset();
+}
+
 
 int check_if_player_lost(int arr[10][10], int player_no)
 {
@@ -737,15 +791,30 @@ void UserInput_new() //accepts user inputs and generates coordinates
             }
             else if (ch == 'V') // To see the rules of the game
             {
-                //rules(); //need to create
+                rules(); 
             }
             else if (ch == 'U') // To undo moves,here u can undo any no of moves,user needs to enter the number of undos they want to do
             {
+                int p1, p2;
+                printf("\n");
                 printf("Enter the number of moves you would like to undo:");
                 int num_moves; // number of moves to undo
                 scanf("%d", &num_moves);
-
-                //undo(num_moves, redmoves, bluemoves, storered, storeblue, board);
+                printf("\nIf Player 1 agrees to undo %d moves, enter 1, else 0:", num_moves);
+                scanf("%d", &p1);
+                printf("If Player 2 agrees to undo %d moves, enter 1, else 0:", num_moves);
+                scanf("%d", &p2);
+                if (p1 == 1 && p2 == 1)
+                {
+                    undo(num_moves, redmoves, bluemoves, storered, storeblue);
+                }
+                else
+                {
+                    printf("\n");
+                    red();
+                    printf("Both players didn't agree to undo moves, So back to the game.\n\n");
+                    reset();
+                }
             }
             else if (ch == 'W') // To see the next possible moves
             {
@@ -754,7 +823,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
                 scanf("%d", &n);
                 //all_possible_moves(); // need to create
             }
-            else if (ch == 'U')
+            else if (ch == 'Z')
             {
                 Instructions();
             }
