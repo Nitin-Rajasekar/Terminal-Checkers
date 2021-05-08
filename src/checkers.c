@@ -72,83 +72,78 @@ void reset()
     printf("\033[0m");
 }
 
+void printcolour(int colour)
+{
 
-    void printcolour(int colour)
+    if (colour == 1)
+        printf("\033[1;31m");
+
+    else if (colour == 2)
+        printf("\033[1;33m");
+
+    else if (colour == 3)
+        printf("\033[1;32m");
+
+    else if (colour == 4)
+        printf("\033[1;34m");
+}
+
+int choosecolour()
+{
+    printf("THE COLOURS AVAILABLE ARE \n\n");
+    red();
+    printf("\u2588\u2588 - R "); // 1
+    yellow();
+    printf("\u2588\u2588 - Y "); // 2
+    green();
+    printf("\u2588\u2588 - G "); // 3
+    blue();
+    printf("\u2588\u2588 - B\n\n"); // 4
+    reset();
+
+    char colour[7];
+    printf("ENTER THE COLOUR YOU WANT\n");
+    scanf("%s", colour);
+
+    if (strcmp(colour, "R") == 0)
     {
-
-        if (colour == 1)
-            printf("\033[1;31m");
-
-         else if (colour == 2)
-           printf("\033[1;33m");
-
-            else if (colour == 3)
-             printf("\033[1;32m");
-
-             else if (colour == 4)
-               printf("\033[1;34m");
-              
+        return 1;
     }
-
-    int choosecolour()
+    if (strcmp(colour, "Y") == 0)
     {
-        printf("THE COLOURS AVAILABLE ARE \n\n");
-        red();
-        printf("\u2588\u2588 - R "); // 1
-        yellow();
-        printf("\u2588\u2588 - Y "); // 2
-        green();
-        printf("\u2588\u2588 - G "); // 3
-        blue();
-        printf("\u2588\u2588 - B\n\n"); // 4
-        reset();
-
-        char colour[7];
-        printf("ENTER THE COLOUR YOU WANT\n");
-        scanf("%s", colour);
-
-        if (strcmp(colour, "R") == 0)
-        {
-            return 1;
-        }
-        if (strcmp(colour, "Y") == 0)
-        {
-            return 2;
-        }
-        if (strcmp(colour, "G") == 0)
-        {
-            return 3;
-        }
-        if (strcmp(colour, "B") == 0)
-        {
-            return 4;
-        }
+        return 2;
     }
-
-    int p1_colour, p2_colour;
-
-    void player1_colour()
+    if (strcmp(colour, "G") == 0)
     {
-        p1_colour = choosecolour();
+        return 3;
     }
-
-    void player2_colour()
+    if (strcmp(colour, "B") == 0)
     {
-
-        int k = choosecolour();
-        if (k != p1_colour)
-        {
-            p2_colour = k;
-        }
-        else
-        {
-            printf("THE COLOUR IS ALREADY TAKEN CHOOSE ANOTHER \n\n");
-            choosecolour();
-        }
+        return 4;
     }
+}
 
-    
+int p1_colour, p2_colour;
 
+void player1_colour()
+{
+    p1_colour = choosecolour();
+}
+
+void player2_colour()
+{
+
+    int k = choosecolour();
+    if (k != p1_colour)
+    {
+        p2_colour = k;
+    }
+    else
+    {
+        printf("THE COLOUR IS ALREADY TAKEN CHOOSE ANOTHER \n\n");
+        choosecolour();
+    }
+}
 
 /*void Instructions()
 {
@@ -234,26 +229,26 @@ void PrintBoard(int arr[10][10])
                 printf("\u2588\u2588 "); //opaque block for inacessible squares
             if (arr[i][j] == 0)
                 printf("   "); //empty
-            
+
             printcolour(p1_colour);
             if (arr[i][j] == 1)
                 printf("\u24D0  "); //player 1
-                reset();
-            
+            reset();
+
             printcolour(p2_colour);
             if (arr[i][j] == 2)
                 printf("\u24D1  "); //player 2
-                 reset();
-            
-              printcolour(p1_colour);
+            reset();
+
+            printcolour(p1_colour);
             if (arr[i][j] == 3)
                 printf("\u24B6  "); //player 1 (crown)
-                 reset();
-            
-               printcolour(p2_colour);
+            reset();
+
+            printcolour(p2_colour);
             if (arr[i][j] == 4)
                 printf("\u24B7  "); //player 2 (crown)
-                reset();
+            reset();
         }
         printf("\n");
     }
@@ -261,24 +256,23 @@ void PrintBoard(int arr[10][10])
 }
 
 //Note: x represents column, y represents row
-int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might wanna consider making it return 0 or 1 for validity 
-{                  //player on turn, coordinates, board are parameters
+int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might wanna consider making it return 0 or 1 for validity
+{                                                                      //player on turn, coordinates, board are parameters
 
-    
     jump_made = 0; //becomes 1 if a jump is made
     if (player == 1)
     { //x1,y1 = current position; x2,y2 = desired
         if (arr[y1][x1] == 1)
-        { //non-crowned
+        {                                                             //non-crowned
             if ((y1 - y2 == 1) && ((x2 - x1 == 1) || (x1 - x2 == 1))) //y2 will be above y1, hence smaller index coz 2d array
-            { //not a jump
+            {                                                         //not a jump
                 if (arr[y2][x2] == 0)
                 {
                     arr[y1][x1] = 0;
                     arr[y2][x2] = 1;
                 }
-                else return 0
-                    ;
+                else
+                    return 0;
             }
             else if (y1 - y2 == 2)
             { //jump
@@ -287,12 +281,12 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                     if ((arr[y2 + 1][x1 + 1] == 2 || arr[y2 + 1][x1 + 1] == 4) && (arr[y2][x2] == 0))
                     {
                         arr[y2 + 1][x1 + 1] = 0; //removing the opponent's pawn from [y2+1][x1+1]
-                        arr[y2][x2] = 1;         
+                        arr[y2][x2] = 1;
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else return 0
-                        ;
+                    else
+                        return 0;
                 }
                 else if (x1 - x2 == 2)
                 { //left jump
@@ -303,14 +297,14 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else return 0
-                        ;
+                    else
+                        return 0;
                 }
-                else return 0
-                    ;
+                else
+                    return 0;
             }
-            else return 0
-                ;
+            else
+                return 0;
         }
         else if (arr[x1][y1] == 3)
         { //crowned
@@ -321,12 +315,12 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                     arr[y1][x1] = 0;
                     arr[y2][x2] = 3;
                 }
-                else return 0
-                    ;
+                else
+                    return 0;
             }
             else if (y2 - y1 == 2)
-            { //backward jump
-                if (x2 - x1 == 2)   //right jump
+            {                     //backward jump
+                if (x2 - x1 == 2) //right jump
                 {
                     if ((arr[y1 + 1][x1 + 1] == 2 || arr[y1 + 1][x1 + 1] == 4) && (arr[y2][x2] == 0))
                     {
@@ -335,10 +329,10 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else return 0
-                        ;
+                    else
+                        return 0;
                 }
-                else if (x1 - x2 == 2)      //left
+                else if (x1 - x2 == 2) //left
                 {
                     if ((arr[y1 + 1][x1 - 1] == 2 || arr[y1 + 1][x1 - 1] == 4) && (arr[y2][x2] == 0))
                     {
@@ -347,15 +341,15 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else return 0
-                        ;
+                    else
+                        return 0;
                 }
-                else return 0
-                    ;
+                else
+                    return 0;
             }
             else if (y1 - y2 == 2)
-            { //forward jump
-                if (x2 - x1 == 2)       //right
+            {                     //forward jump
+                if (x2 - x1 == 2) //right
                 {
                     if ((arr[y2 + 1][x1 + 1] == 2 || arr[y2 + 1][x1 + 1] == 4) && (arr[y2][x2] == 0))
                     {
@@ -364,10 +358,10 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else return 0
-                        ;
+                    else
+                        return 0;
                 }
-                else if (x1 - x2 == 2)      //left
+                else if (x1 - x2 == 2) //left
                 {
                     if ((arr[y2 + 1][x1 - 1] == 2 || arr[y2 + 1][x1 - 1] == 4) && (arr[y2][x2] == 0))
                     {
@@ -376,17 +370,17 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else return 0
-                        ;
+                    else
+                        return 0;
                 }
-                else return 0
-                    ;
+                else
+                    return 0;
             }
-            else return 0
-                ;
+            else
+                return 0;
         }
-        else return 0
-            ;
+        else
+            return 0;
         if (y2 == 1 && arr[y2][x2] == 1)
         {
             arr[y2][x2] = 3; //creates king for player 1
@@ -406,8 +400,8 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                     arr[y2][x2] = 2;
                     //jump_made = 1;
                 }
-                else return 0
-                    ;
+                else
+                    return 0;
             }
             else if (y2 - y1 == 2)
             { //jump
@@ -420,8 +414,8 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else return 0
-                        ;
+                    else
+                        return 0;
                 }
                 else if (x1 - x2 == 2)
                 { //left jump
@@ -432,14 +426,14 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else return 0
-                        ;
+                    else
+                        return 0;
                 }
-                else return 0
-                    ;
+                else
+                    return 0;
             }
-            else return 0
-                ;
+            else
+                return 0;
         }
         else if (arr[y1][x1] == 4)
         { //crowned
@@ -450,12 +444,12 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                     arr[y1][x1] = 0;
                     arr[y2][x2] = 4;
                 }
-                else return 0
-                    ;
+                else
+                    return 0;
             }
             else if (y2 - y1 == 2)
-            { //forward jump
-                if (x2 - x1 == 2)       //right
+            {                     //forward jump
+                if (x2 - x1 == 2) //right
                 {
                     if ((arr[y1 + 1][x1 + 1] == 1 || arr[y1 + 1][x1 + 1] == 3) && (arr[y2][x2] == 0))
                     {
@@ -464,10 +458,10 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else return 0
-                        ;
+                    else
+                        return 0;
                 }
-                else if (x1 - x2 == 2)  //left
+                else if (x1 - x2 == 2) //left
                 {
                     if ((arr[y1 + 1][x2 + 1] == 1 || arr[y1 + 1][x2 + 1] == 3) && (arr[y2][x2] == 0))
                     {
@@ -476,11 +470,11 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else return 0
-                        ;
+                    else
+                        return 0;
                 }
-                else return 0
-                    ;
+                else
+                    return 0;
             }
             else if (y1 - y2 == 2)
             { //backward jump
@@ -493,8 +487,8 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else return 0
-                        ;
+                    else
+                        return 0;
                 }
                 else if (x1 - x2 == 2)
                 {
@@ -505,17 +499,17 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                         arr[y1][x1] = 0;
                         jump_made = 1;
                     }
-                    else return 0
-                        ;
+                    else
+                        return 0;
                 }
-                else return 0
-                    ;
+                else
+                    return 0;
             }
-            else return 0
-                ;
+            else
+                return 0;
         }
-        else return 0
-            ;
+        else
+            return 0;
         if (x2 == 8 && arr[x2][y2] == 2)
         {
             arr[y2][x2] = 4; //creates king for player 2;
@@ -539,6 +533,13 @@ int check_possible_jump(int arr[10][10], int player_no) //utility function to ch
                 {
                     if (arr[i - 1][j - 1] == 2 && arr[i - 2][j - 2] == 0)
                         possible_jump = 1;
+                    if (arr[i - 1][j + 1] == 2 && arr[i - 2][j + 2] == 0)
+                        possible_jump = 1;
+                }
+                else if (arr[i][j] == 3)
+                {
+                    if (arr[i - 1][j - 1] == 2 && arr[i - 2][j - 2] == 0)
+                        possible_jump = 1;
                     if (arr[i + 1][j + 1] == 2 && arr[i + 2][j + 2] == 0)
                         possible_jump = 1;
                     if (arr[i + 1][j - 1] == 2 && arr[i + 2][j - 2] == 0)
@@ -558,6 +559,13 @@ int check_possible_jump(int arr[10][10], int player_no) //utility function to ch
             {
                 if (arr[i][j] == 2)
                 {
+                    if (arr[i + 1][j - 1] == 1 && arr[i + 2][j - 2] == 0)
+                        possible_jump = 1;
+                    if (arr[i + 1][j + 1] == 1 && arr[i + 2][j + 2] == 0)
+                        possible_jump = 1;
+                }
+                else if (arr[i][j] == 4)
+                {
                     if (arr[i - 1][j - 1] == 1 && arr[i - 2][j - 2] == 0)
                         possible_jump = 1;
                     if (arr[i + 1][j + 1] == 1 && arr[i + 2][j + 2] == 0)
@@ -575,27 +583,42 @@ int check_possible_jump(int arr[10][10], int player_no) //utility function to ch
 int check_possible_jump_specific(int arr[10][10], int player_no, int x, int y) //check_possible_jump but for a specific position
 {
     int possible_jump = 0; //becomes 1 if a jump is available
-    if(player_no==2)
+    if (player_no == 2 && arr[x][y] == 2)
     {
-    if (arr[x - 1][y - 1] == 1 && arr[x - 2][y - 2] == 0)
-        possible_jump = 1;
-    if (arr[x + 1][y + 1] == 1 && arr[x + 2][y + 2] == 0)
-        possible_jump = 1;
-    if (arr[x + 1][y - 1] == 1 && arr[x + 2][y - 2] == 0)
-        possible_jump = 1;
-    if (arr[x - 1][y + 1] == 1 && arr[x - 2][y + 2] == 0)
-        possible_jump = 1;
+
+        if (arr[x + 1][y + 1] == 1 && arr[x + 2][y + 2] == 0)
+            possible_jump = 1;
+        if (arr[x + 1][y - 1] == 1 && arr[x + 2][y - 2] == 0)
+            possible_jump = 1;
     }
-    else if(player_no==1)
+    else if (player_no == 2 && arr[x][y] == 4)
     {
-    if (arr[x - 1][y - 1] == 2 && arr[x - 2][y - 2] == 0)
-        possible_jump = 1;
-    if (arr[x + 1][y + 1] == 2 && arr[x + 2][y + 2] == 0)
-        possible_jump = 1;
-    if (arr[x + 1][y - 1] == 2 && arr[x + 2][y - 2] == 0)
-        possible_jump = 1;
-    if (arr[x - 1][y + 1] == 2 && arr[x - 2][y + 2] == 0)
-        possible_jump = 1;
+        if (arr[x - 1][y - 1] == 1 && arr[x - 2][y - 2] == 0)
+            possible_jump = 1;
+        if (arr[x + 1][y + 1] == 1 && arr[x + 2][y + 2] == 0)
+            possible_jump = 1;
+        if (arr[x + 1][y - 1] == 1 && arr[x + 2][y - 2] == 0)
+            possible_jump = 1;
+        if (arr[x - 1][y + 1] == 1 && arr[x - 2][y + 2] == 0)
+            possible_jump = 1;
+    }
+    else if (player_no == 1 && arr[x][y] == 1)
+    {
+        if (arr[x - 1][y - 1] == 2 && arr[x - 2][y - 2] == 0)
+            possible_jump = 1;
+        if (arr[x - 1][y + 1] == 2 && arr[x - 2][y + 2] == 0)
+            possible_jump = 1;
+    }
+    else if (player_no == 1 && arr[x][y] == 3)
+    {
+        if (arr[x - 1][y - 1] == 2 && arr[x - 2][y - 2] == 0)
+            possible_jump = 1;
+        if (arr[x + 1][y + 1] == 2 && arr[x + 2][y + 2] == 0)
+            possible_jump = 1;
+        if (arr[x + 1][y - 1] == 2 && arr[x + 2][y - 2] == 0)
+            possible_jump = 1;
+        if (arr[x - 1][y + 1] == 2 && arr[x - 2][y + 2] == 0)
+            possible_jump = 1;
     }
 
     return possible_jump;
@@ -617,23 +640,61 @@ int check_if_player_lost(int arr[10][10], int player_no)
 {
     int flag = 1; //becomes zero if player has a move left;
     int i, j;
+    if (check_possible_jump(arr, player_no) == 1)
+        flag = 0;
 
-    for (i = 0; i < 10; i++)
+    if (player_no == 1)
     {
-        for (j = 0; j < 10; j++)
+        for (i = 0; i < 10; i++)
         {
-            if (arr[i][j] == player_no)
+            for (j = 0; j < 10; j++)
             {
-                if (arr[i - 1][j - 1] == 0)
-                    flag = 0;
-                if (arr[i + 1][j + 1] == 0)
-                    flag = 0;
-                if (arr[i + 1][j - 1] == 0)
-                    flag = 0;
-                if (arr[i - 1][j + 1] == 0)
-                    flag = 0;
-                if (check_possible_jump(arr, player_no) == 1)
-                    flag = 0;
+                if (arr[i][j] == 1)
+                {
+                    if (arr[i - 1][j - 1] == 0)
+                        flag = 0;
+                    if (arr[i - 1][j + 1] == 0)
+                        flag = 0;
+                }
+                else if (arr[i][j] == 3)
+                {
+                    if (arr[i - 1][j - 1] == 0)
+                        flag = 0;
+                    if (arr[i - 1][j + 1] == 0)
+                        flag = 0;
+                    if (arr[i + 1][j - 1] == 0)
+                        flag = 0;
+                    if (arr[i + 1][j + 1] == 0)
+                        flag = 0;
+                }
+            }
+        }
+    }
+
+    else if (player_no == 2)
+    {
+        for (i = 0; i < 10; i++)
+        {
+            for (j = 0; j < 10; j++)
+            {
+                if (arr[i][j] == 1)
+                {
+                    if (arr[i + 1][j - 1] == 0)
+                        flag = 0;
+                    if (arr[i + 1][j + 1] == 0)
+                        flag = 0;
+                }
+                else if (arr[i][j] == 3)
+                {
+                    if (arr[i - 1][j - 1] == 0)
+                        flag = 0;
+                    if (arr[i - 1][j + 1] == 0)
+                        flag = 0;
+                    if (arr[i + 1][j - 1] == 0)
+                        flag = 0;
+                    if (arr[i + 1][j + 1] == 0)
+                        flag = 0;
+                }
             }
         }
     }
@@ -647,7 +708,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
     char c1, c2;
     int x1, x2, y1, y2;
     int x_store, y_store;
-    int multiple_jump=0; //becomes 1 when on a multiple jump
+    int multiple_jump = 0; //becomes 1 when on a multiple jump
     MakeBoard(arr);
     PrintBoard(arr);
 
@@ -657,7 +718,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
     {
         int redmoves = 0;
         int bluemoves = 0;
-        retry:
+    retry:
         printf("Player %d enter starting and destination positions: ", player_no);
 
         scanf(" %c%d %c%d", &c1, &y1, &c2, &y2);
@@ -702,9 +763,8 @@ void UserInput_new() //accepts user inputs and generates coordinates
             while (getchar() != '\n') //flush buffer
                 ;
 
-            x1 = c1 - 64;             //converting from A-H to 1-8
+            x1 = c1 - 64; //converting from A-H to 1-8
             x2 = c2 - 64;
-
 
             //printf("Co-ordinates are %d %d %d %d\n", x1, y1, x2, y2);
             if (check_possible_jump(arr, player_no) == 1 && ((x1 - x2) != 2 && (x2 - x1) != 2))
@@ -721,8 +781,9 @@ void UserInput_new() //accepts user inputs and generates coordinates
                 }
             }
             int valid = Logic(player_no, x1, x2, y1, y2, arr); // Plays the move, stores "valid"
-                                                   // storage(x1, y1, x2, y2, redmoves, bluemoves, player_no);  // storing all the moves to be used in other functions
-            if (valid==1)PrintBoard(arr);          // Prints the board
+                                                               // storage(x1, y1, x2, y2, redmoves, bluemoves, player_no);  // storing all the moves to be used in other functions
+            if (valid == 1)
+                PrintBoard(arr); // Prints the board
             else
             {
                 goto retry;
@@ -787,19 +848,18 @@ int main()
     printf("   cccccccc     hhh     hhh     eeeeeeeee      cccccccc    kkk   kkk     eeeeeeeee     rrr      rrr  sssssssss\n");
     printf("    cccccccc    hhh     hhh     eeeeeeeee       cccccccc   kkk    kkk    eeeeeeeee     rrr       rrr sssssssss\n");
 
-    
     reset();
     printf("\n\n");
-    
+
     player1_colour();
     player2_colour();
-    
+
     reset();
     printf("\n\n\n\n");
     yellow();
     printf("<>---<>-----<>----<>------THE GAME IS STARTING ----<>----<>-----<>-----<>\n");
     printf("\n\n");
-   
+
     printf("*******ENTER X0 X0 FOR INSTRUCTIONS AND OTHER FUNCTIONS*******\n");
     reset();
     /* Note-It looks a bit messy need to change it a little bit */
