@@ -42,8 +42,8 @@ void storage(int x1,int y1,int x2,int y2,int redmoves,int bluemoves, int player)
 void undo(int k, int redmoves, int bluemoves, Moves storered[100000], Moves storeblue[100000], int board[10][10])  // k represents the number of moves the player wants to undo 
 {                                                                                                                  // redmoves and bluemoves represent the total moves made by team 1 and team 2 resp.
     int i, j, x1, x2, y1, y2;
-    i == 1;
-    j == 1;
+    i = 0;
+    j = 0;
 
     Makeboard(board);
 
@@ -80,9 +80,12 @@ void undo(int k, int redmoves, int bluemoves, Moves storered[100000], Moves stor
 
 void PlayerConsent(int P1, int P2)                                           //The undo function would only work when both player 1 and player 2 agree.
 {
+    int x;
     if(P1 == 1 && P2 == 1)
     {
-        undo(k, redmoves, bluemoves, storered, storeblue, board);
+        printf("Enter the total moves to undo: ");
+        scanf("%d", &x);
+        undo(x, redmoves, bluemoves, storered, storeblue, board);
     }
 
     else
