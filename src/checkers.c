@@ -282,7 +282,7 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
             else
                 return 0;
         }
-        else if (arr[x1][y1] == 3)
+        else if (arr[y1][x1] == 3)
         { //crowned
             if (((y2 - y1 == 1) || (y1 - y2 == 1)) && ((x2 - x1 == 1) || (x1 - x2 == 1)))
             { //non-jump
