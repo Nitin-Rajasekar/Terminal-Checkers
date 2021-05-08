@@ -510,7 +510,7 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
         }
         else
             return 0;
-        if (x2 == 8 && arr[x2][y2] == 2)
+        if (y2 == 8 && arr[y2][x2] == 2)
         {
             arr[y2][x2] = 4; //creates king for player 2;
             jump_made = 0;
