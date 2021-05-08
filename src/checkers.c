@@ -218,15 +218,16 @@ void Instructions()
 
 void PrintBoard(int arr[10][10])
 {
-    printf("\n\t ");
+    printf("\n\t");
     for (int i = 1; i <= 8; i++)
     { //printing A-H horizontally for users' convenience
-        printf(" %c ", (char)(i + 64));
+        printf("%c  ", (char)(i + 64));
     }
     printf("\n");
     for (int i = 1; i < 9; i++)
     {
-        printf("%c\t", 9 - i); //printing 8-1 vertically (downwards)
+        printf("%d \t", i); //printing 1-8 vertically (downwards)
+        // This way the input corresponds directly to the array's indices
         for (int j = 0; j < 9; j++)
         {
             if (arr[i][j] == -1)
@@ -259,33 +260,35 @@ void PrintBoard(int arr[10][10])
     printf("\n");
 }
 
-//Note: x represents row's position, y represents column's.
-void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10])
-{                  //player on turn, coordinates are parameters
+//Note: x represents column, y represents row
+void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might wanna consider making it return 0 or 1 for validity 
+{                  //player on turn, coordinates, board are parameters
+
+    
     jump_made = 0; //becomes 1 if a jump is made
     if (player == 1)
     { //x1,y1 = current position; x2,y2 = desired
-        if (arr[x1][y1] == 1)
+        if (arr[y1][x1] == 1)
         { //non-crowned
-            if ((y2 - y1 == 1) && ((x2 - x1 == 1) || (x1 - x2 == 1)))
+            if ((y1 - y2 == 1) && ((x2 - x1 == 1) || (x1 - x2 == 1))) //y2 will be above y1, hence smaller index coz 2d array
             { //not a jump
-                if (arr[x2][y2] == 0)
+                if (arr[y2][x2] == 0)
                 {
-                    arr[x1][y1] = 0;
-                    arr[x2][y2] = 1;
+                    arr[y1][x1] = 0;
+                    arr[y2][x2] = 1;
                 }
                 else /*code for invalid input*/
                     ;
             }
-            else if (y2 - y1 == 2)
+            else if (y1 - y2 == 2)
             { //jump
                 if (x2 - x1 == 2)
                 { //right jump
-                    if ((arr[x1 + 1][y1 + 1] == 2 || arr[x1 + 1][y1 + 1] == 4) && (arr[x2][y2] == 0))
+                    if ((arr[y2 + 1][x1 + 1] == 2 || arr[y2 + 1][x1 + 1] == 4) && (arr[y2][x2] == 0))
                     {
-                        arr[x1 + 1][y1 + 1] = 0; //removing the opponent's pawn
-                        arr[x2][y2] = 1;
-                        arr[x1][y1] = 0;
+                        arr[y2 + 1][x1 + 1] = 0; //removing the opponent's pawn from [y2+1][x1+1]
+                        arr[y2][x2] = 1;         
+                        arr[y1][x1] = 0;
                         jump_made = 1;
                     }
                     else /*code for invalid input*/
@@ -293,11 +296,11 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10])
                 }
                 else if (x1 - x2 == 2)
                 { //left jump
-                    if ((arr[x1 - 1][y1 + 1] == 2 || arr[x1 - 1][y1 + 1] == 4) && (arr[x2][y2] == 0))
+                    if ((arr[y2 + 1][x1 - 1] == 2 || arr[y2 + 1][x1 - 1] == 4) && (arr[y2][x2] == 0))
                     {
-                        arr[x1 - 1][y1 + 1] = 0; //removing the opponent's pawn
-                        arr[x2][y2] = 1;
-                        arr[x1][y1] = 0;
+                        arr[y2 + 1][x1 - 1] = 0; //removing the opponent's pawn
+                        arr[y2][x2] = 1;
+                        arr[y1][x1] = 0;
                         jump_made = 1;
                     }
                     else /*code for invalid input*/
@@ -313,36 +316,35 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10])
         { //crowned
             if (((y2 - y1 == 1) || (y1 - y2 == 1)) && ((x2 - x1 == 1) || (x1 - x2 == 1)))
             { //non-jump
-                if (arr[x2][y2] == 0)
+                if (arr[y2][x2] == 0)
                 {
-                    arr[x1][y1] = 0;
-                    arr[x2][y2] = 3;
-                    jump_made = 1;
+                    arr[y1][x1] = 0;
+                    arr[y2][x2] = 3;
                 }
                 else /*code for invalid input*/
                     ;
             }
             else if (y2 - y1 == 2)
-            { //forward jump
-                if (x2 - x1 == 2)
+            { //backward jump
+                if (x2 - x1 == 2)   //right jump
                 {
-                    if ((arr[x1 + 1][y1 + 1] == 2 || arr[x1 + 1][y1 + 1] == 4) && (arr[x2][y2] == 0))
+                    if ((arr[y1 + 1][x1 + 1] == 2 || arr[y1 + 1][x1 + 1] == 4) && (arr[y2][x2] == 0))
                     {
-                        arr[x1 + 1][y1 + 1] = 0;
-                        arr[x2][y2] = 3;
-                        arr[x1][y1] = 0;
+                        arr[y1 + 1][x1 + 1] = 0;
+                        arr[y2][x2] = 3;
+                        arr[y1][x1] = 0;
                         jump_made = 1;
                     }
                     else /*code for invalid input*/
                         ;
                 }
-                else if (x1 - x2 == 2)
+                else if (x1 - x2 == 2)      //left
                 {
-                    if ((arr[x1 - 1][y1 + 1] == 2 || arr[x1 - 1][y1 + 1] == 4) && (arr[x2][y2] == 0))
+                    if ((arr[y1 + 1][x1 - 1] == 2 || arr[y1 + 1][x1 - 1] == 4) && (arr[y2][x2] == 0))
                     {
-                        arr[x1 - 1][y1 + 1] = 0;
-                        arr[x2][y2] = 3;
-                        arr[x1][y1] = 0;
+                        arr[y1 + 1][x1 - 1] = 0;
+                        arr[y2][x2] = 3;
+                        arr[y1][x1] = 0;
                         jump_made = 1;
                     }
                     else /*code for invalid input*/
@@ -352,26 +354,26 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10])
                     ;
             }
             else if (y1 - y2 == 2)
-            { //backward jump
-                if (x2 - x1 == 2)
+            { //forward jump
+                if (x2 - x1 == 2)       //right
                 {
-                    if ((arr[x1 + 1][y2 + 1] == 2 || arr[x1 + 1][y2 + 1] == 4) && (arr[x2][y2] == 0))
+                    if ((arr[y2 + 1][x1 + 1] == 2 || arr[y2 + 1][x1 + 1] == 4) && (arr[y2][x2] == 0))
                     {
-                        arr[x1 + 1][y2 + 1] = 0;
-                        arr[x2][y2] = 3;
-                        arr[x1][y1] = 0;
+                        arr[y2 + 1][x1 + 1] = 0;
+                        arr[y2][x2] = 3;
+                        arr[y1][x1] = 0;
                         jump_made = 1;
                     }
                     else /*code for invalid input*/
                         ;
                 }
-                else if (x1 - x2 == 2)
+                else if (x1 - x2 == 2)      //left
                 {
-                    if ((arr[x1 - 1][y2 + 1] == 2 || arr[x1 - 1][y2 + 1] == 4) && (arr[x2][y2] == 0))
+                    if ((arr[y2 + 1][x1 - 1] == 2 || arr[y2 + 1][x1 - 1] == 4) && (arr[y2][x2] == 0))
                     {
-                        arr[x1 - 1][y2 + 1] = 0;
-                        arr[x2][y2] = 3;
-                        arr[x1][y1] = 0;
+                        arr[y2 + 1][x1 - 1] = 0;
+                        arr[y2][x2] = 3;
+                        arr[y1][x1] = 0;
                         jump_made = 1;
                     }
                     else /*code for invalid input*/
@@ -385,37 +387,37 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10])
         }
         else /*code for invalid input*/
             ;
-        if (x2 == 1 && arr[x2][y2] == 1)
+        if (y2 == 1 && arr[y2][x2] == 1)
         {
-            arr[x2][y2] = 3; //creates king for player 1
+            arr[y2][x2] = 3; //creates king for player 1
             jump_made = 0;   //because when a new king is made, the players turn terminates irrespective of whether he made a jump
                              //so jump_made is 0 so that the player cannot make an extra jump
         }
     }
     else if (player == 2)
     {
-        if (arr[x1][y1] == 2)
+        if (arr[y1][x1] == 2)
         { //non-crowned
-            if ((y1 - y2 == 1) && ((x2 - x1 == 1) || (x1 - x2 == 1)))
+            if ((y2 - y1 == 1) && ((x2 - x1 == 1) || (x1 - x2 == 1)))
             { //not a jump
-                if (arr[x2][y2] == 0)
+                if (arr[y2][x2] == 0)
                 {
-                    arr[x1][y1] = 0;
-                    arr[x2][y2] = 2;
+                    arr[y1][x1] = 0;
+                    arr[y2][x2] = 2;
                     jump_made = 1;
                 }
                 else /*code for invalid input*/
                     ;
             }
-            else if (y1 - y2 == 2)
+            else if (y2 - y1 == 2)
             { //jump
                 if (x2 - x1 == 2)
                 { //right jump
-                    if ((arr[x1 + 1][y2 + 1] == 1 || arr[x1 + 1][y2 + 1] == 3) && (arr[x2][y2] == 0))
+                    if ((arr[y1 + 1][x1 + 1] == 1 || arr[y1 + 1][x1 + 1] == 3) && (arr[y2][x2] == 0))
                     {
-                        arr[x1 + 1][y2 + 1] = 0; //removing the opponent's pawn
-                        arr[x2][y2] = 2;
-                        arr[x1][y1] = 0;
+                        arr[y1 + 1][x1 + 1] = 0; //removing the opponent's pawn
+                        arr[y2][x2] = 2;
+                        arr[y1][x1] = 0;
                         jump_made = 1;
                     }
                     else /*code for invalid input*/
@@ -423,11 +425,11 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10])
                 }
                 else if (x1 - x2 == 2)
                 { //left jump
-                    if ((arr[x1 - 1][y2 + 1] == 1 || arr[x1 - 1][y2 + 1] == 3) && (arr[x2][y2] == 0))
+                    if ((arr[y1 + 1][x2 + 1] == 1 || arr[y1 + 1][x2 + 1] == 3) && (arr[y2][x2] == 0))
                     {
-                        arr[x1 - 1][y1 + 1] = 0; //removing the opponent's pawn
-                        arr[x2][y2] = 2;
-                        arr[x1][y1] = 0;
+                        arr[y1 + 1][x2 + 1] = 0; //removing the opponent's pawn
+                        arr[y2][x2] = 2;
+                        arr[y1][x1] = 0;
                         jump_made = 1;
                     }
                     else /*code for invalid input*/
@@ -439,40 +441,39 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10])
             else /*code for invalid input*/
                 ;
         }
-        else if (arr[x1][y1] == 4)
+        else if (arr[y1][x1] == 4)
         { //crowned
             if (((y2 - y1 == 1) || (y1 - y2 == 1)) && ((x2 - x1 == 1) || (x1 - x2 == 1)))
             { //non-jump
-                if (arr[x2][y2] == 0)
+                if (arr[y2][x2] == 0)
                 {
-                    arr[x1][y1] = 0;
-                    arr[x2][y2] = 4;
-                    jump_made = 1;
+                    arr[y1][x1] = 0;
+                    arr[y2][x2] = 4;
                 }
                 else /*code for invalid input*/
                     ;
             }
             else if (y2 - y1 == 2)
             { //forward jump
-                if (x2 - x1 == 2)
+                if (x2 - x1 == 2)       //right
                 {
-                    if ((arr[x1 + 1][y1 + 1] == 1 || arr[x1 + 1][y1 + 1] == 3) && (arr[x2][y2] == 0))
+                    if ((arr[y1 + 1][x1 + 1] == 1 || arr[y1 + 1][x1 + 1] == 3) && (arr[y2][x2] == 0))
                     {
-                        arr[x1 + 1][y1 + 1] = 0;
-                        arr[x2][y2] = 4;
-                        arr[x1][y1] = 0;
+                        arr[y1 + 1][x1 + 1] = 0;
+                        arr[y2][x2] = 4;
+                        arr[y1][x1] = 0;
                         jump_made = 1;
                     }
                     else /*code for invalid input*/
                         ;
                 }
-                else if (x1 - x2 == 2)
+                else if (x1 - x2 == 2)  //left
                 {
-                    if ((arr[x1 - 1][y1 + 1] == 1 || arr[x1 - 1][y1 + 1] == 3) && (arr[x2][y2] == 0))
+                    if ((arr[y1 + 1][x2 + 1] == 1 || arr[y1 + 1][x2 + 1] == 3) && (arr[y2][x2] == 0))
                     {
-                        arr[x1 - 1][y1 + 1] = 0;
-                        arr[x2][y2] = 4;
-                        arr[x1][y1] = 0;
+                        arr[y1 + 1][x2 + 1] = 0;
+                        arr[y2][x2] = 4;
+                        arr[y1][x1] = 0;
                         jump_made = 1;
                     }
                     else /*code for invalid input*/
@@ -485,11 +486,11 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10])
             { //backward jump
                 if (x2 - x1 == 2)
                 {
-                    if ((arr[x1 + 1][y2 + 1] == 1 || arr[x1 + 1][y2 + 1] == 3) && (arr[x2][y2] == 0))
+                    if ((arr[y2 + 1][x1 + 1] == 1 || arr[y2 + 1][x1 + 1] == 3) && (arr[y2][x2] == 0))
                     {
-                        arr[x1 + 1][y2 + 1] = 0;
-                        arr[x2][y2] = 4;
-                        arr[x1][y1] = 0;
+                        arr[y2 + 1][x1 + 1] = 0;
+                        arr[y2][x2] = 4;
+                        arr[y1][x1] = 0;
                         jump_made = 1;
                     }
                     else /*code for invalid input*/
@@ -497,11 +498,11 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10])
                 }
                 else if (x1 - x2 == 2)
                 {
-                    if ((arr[x1 - 1][y2 + 1] == 1 || arr[x1 - 1][y2 + 1] == 3) && (arr[x2][y2] == 0))
+                    if ((arr[y2 + 1][x2 + 1] == 1 || arr[y2 + 1][x2 + 1] == 3) && (arr[y2][x2] == 0))
                     {
-                        arr[x1 - 1][y2 + 1] = 0;
-                        arr[x2][y2] = 4;
-                        arr[x1][y1] = 0;
+                        arr[y2 + 1][x2 + 1] = 0;
+                        arr[y2][x2] = 4;
+                        arr[y1][x1] = 0;
                         jump_made = 1;
                     }
                     else /*code for invalid input*/
@@ -517,7 +518,7 @@ void Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10])
             ;
         if (x2 == 8 && arr[x2][y2] == 2)
         {
-            arr[x2][y2] = 4; //creates king for player 2;
+            arr[y2][x2] = 4; //creates king for player 2;
             jump_made = 0;
         }
     }
@@ -644,14 +645,14 @@ void UserInput_new() //accepts user inputs and generates coordinates
 
         printf("Player %d enter starting and destination positions: ", player_no);
 
-        scanf("%c%d %c%d", &c1, &x1, &c2, &x2);
+        scanf("% c%d %c%d", &c1, &x1, &c2, &x2);
 
         if (c1 == 'X' && x1 == 0 && c2 == 'X' && x2 == 0) // If thre user enters X0 X0 then they get access to the functions
         {
             char ch;
             Instructions();    // To help the user we are displaying the Instructions once again
             printf("Enter :"); // User needs to enter the char corresponding to the function they need to access
-            scanf("%c", &ch);
+            scanf(" %c", &ch);
 
             if (ch == 'R') // If the function needed is review the whole game from the starting
             {
@@ -688,8 +689,6 @@ void UserInput_new() //accepts user inputs and generates coordinates
 
             y1 = c1 - 64;
             y2 = c2 - 64;
-            x1 = 9 - x1;
-            x2 = 9 - x2;
 
             //printf("Co-ordinates are %d %d %d %d\n", x1, y1, x2, y2);
             if (check_possible_jump(arr, player_no) == 1 && ((x1 - x2) != 2 && (x2 - x1) != 2))
