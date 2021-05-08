@@ -404,7 +404,7 @@ int Logic(int player, int x1, int x2, int y1, int y2, int arr[10][10]) //might w
                 {
                     arr[y1][x1] = 0;
                     arr[y2][x2] = 2;
-                    jump_made = 1;
+                    //jump_made = 1;
                 }
                 else return 0
                     ;
@@ -575,6 +575,8 @@ int check_possible_jump(int arr[10][10], int player_no) //utility function to ch
 int check_possible_jump_specific(int arr[10][10], int player_no, int x, int y) //check_possible_jump but for a specific position
 {
     int possible_jump = 0; //becomes 1 if a jump is available
+    if(player_no==2)
+    {
     if (arr[x - 1][y - 1] == 1 && arr[x - 2][y - 2] == 0)
         possible_jump = 1;
     if (arr[x + 1][y + 1] == 1 && arr[x + 2][y + 2] == 0)
@@ -583,6 +585,18 @@ int check_possible_jump_specific(int arr[10][10], int player_no, int x, int y) /
         possible_jump = 1;
     if (arr[x - 1][y + 1] == 1 && arr[x - 2][y + 2] == 0)
         possible_jump = 1;
+    }
+    else if(player_no==1)
+    {
+    if (arr[x - 1][y - 1] == 2 && arr[x - 2][y - 2] == 0)
+        possible_jump = 1;
+    if (arr[x + 1][y + 1] == 2 && arr[x + 2][y + 2] == 0)
+        possible_jump = 1;
+    if (arr[x + 1][y - 1] == 2 && arr[x + 2][y - 2] == 0)
+        possible_jump = 1;
+    if (arr[x - 1][y + 1] == 2 && arr[x - 2][y + 2] == 0)
+        possible_jump = 1;
+    }
 
     return possible_jump;
 }
