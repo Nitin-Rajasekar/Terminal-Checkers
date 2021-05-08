@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <wchar.h>
 
 struct move
@@ -755,6 +756,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
 
 int main()
 {
+    printf("\n\n");
     red();
     printf("   cccccccc     hhh     hhh     eeeeeeeee      cccccccc    kkk    kkk    eeeeeeeee     rrrrrrrrr     sssssssss\n");
     printf("  cccccccc      hhh     hhh     eeeeeeeee     cccccccc     kkk   kkk     eeeeeeeee     rrr    rrr    sssssssss\n");
@@ -768,7 +770,7 @@ int main()
 
     
     reset();
-    printf("\n");
+    printf("\n\n");
     
     player1_colour();
     player2_colour();
