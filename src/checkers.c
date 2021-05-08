@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <wchar.h>
 
-
-
 struct move
 {
     int p1;
@@ -416,7 +414,20 @@ int check_possible_jump(int arr[10][10], int player_no) //utility function to ch
     }
     return possible_jump;
 }
+int check_possible_jump_specific(int arr[10][10], int player_no, int x, int y) //check_possible_jump but for a specific position
+{
+    int possible_jump = 0; //becomes 1 if a jump is available
+    if (arr[x - 1][y - 1] == 1 && arr[x - 2][y - 2] == 0)
+        possible_jump = 1;
+    if (arr[x + 1][y + 1] == 1 && arr[x + 2][y + 2] == 0)
+        possible_jump = 1;
+    if (arr[x + 1][y - 1] == 1 && arr[x + 2][y - 2] == 0)
+        possible_jump = 1;
+    if (arr[x - 1][y + 1] == 1 && arr[x - 2][y + 2] == 0)
+        possible_jump = 1;
 
+    return possible_jump;
+}
 /*void UserInput() //accepts user inputs and generates coordinates
 {
     char c1, c2;
@@ -463,6 +474,8 @@ void UserInput_new() //accepts user inputs and generates coordinates
     int result_obtained = 0;
     char c1, c2;
     int x1, x2, y1, y2;
+    int x_store, y_store;
+    int multiple_jump=0; //becomes when on a multiple jump
     MakeBoard(arr);
     PrintBoard(arr);
 
@@ -523,25 +536,43 @@ void UserInput_new() //accepts user inputs and generates coordinates
             x2 = 9 - x2;
 
             //printf("Co-ordinates are %d %d %d %d\n", x1, y1, x2, y2);
-            if(check_possible_jump(arr,player_no)==1&&((x1-x2)!=2&&(x2-x1)!=2))
+            if (check_possible_jump(arr, player_no) == 1 && ((x1 - x2) != 2 && (x2 - x1) != 2))
             {
-                printf("If there is an opportunity to jump, one must take it");
+                printf("If there is an opportunity to jump, one must take it\n");
                 continue;
+            }
+            if (multiple_jump == 1)
+            {
+                if (x1 != x_store || y1 != y_store)
+                {
+                    printf("In a multiple jump you can only jump with the coin you had used in your previous turn\n");
+                    continue;
+                }
             }
             Logic(player_no, x1, x2, y1, y2, arr); // Plays the move
                                                    // storage(x1, y1, x2, y2, redmoves, bluemoves, player_no);  // storing all the moves to be used in other functions
             PrintBoard(arr);                       // Prints the board
 
-            if (player_no == 1 && (jump_made == 0 || check_possible_jump(arr, 1) == 0)) //if a player makes a jump AND could make another he should, so he gets another turn
+            if (player_no == 1 && (jump_made == 0 || check_possible_jump_specific(arr, 1, x2, y2) == 0)) //if a player makes a jump AND could make another he should, so he gets another turn
             {
                 player_no = 2; // go to the next player
                 redmoves++;    // increasing the number of moves made by red
 
             } //jump_made is global, its 1 if a jump has been made
-            else if (player_no == 2 && (jump_made == 0 || check_possible_jump(arr, 2) == 0))
+            else if (player_no == 2 && (jump_made == 0 || check_possible_jump_specific(arr, 2, x2, y2) == 0))
             {
                 player_no = 1; // go to the next player
                 bluemoves++;   // increasing the number of moves made by blue
+            }
+            if (jump_made == 1 && check_possible_jump_specific(arr, player_no, x2, y2) == 1) //player is going to get another turn
+            {
+                multiple_jump = 1;
+                x_store = x2;
+                y_store = y2;
+            }
+            else
+            {
+                multiple_jump = 0;
             }
         }
     }
