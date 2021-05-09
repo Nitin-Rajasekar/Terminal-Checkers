@@ -729,14 +729,14 @@ int check_if_player_lost(int arr[10][10], int player_no)
         {
             for (j = 0; j < 10; j++)
             {
-                if (arr[i][j] == 1)
+                if (arr[i][j] == 2)
                 {
                     if (arr[i + 1][j - 1] == 0)
                         flag = 0;
                     if (arr[i + 1][j + 1] == 0)
                         flag = 0;
                 }
-                else if (arr[i][j] == 3)
+                else if (arr[i][j] == 4)
                 {
                     if (arr[i - 1][j - 1] == 0)
                         flag = 0;
@@ -893,6 +893,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
             }
         }
     }
+    printf("Sorry player %d, you have no moves left, game over....\n");
 }
 
 void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn falls earlier
