@@ -9,6 +9,7 @@ struct move
     int p2;
     int n1;
     int n2;
+    int mj;
 };                             // storing the initial and final places
 struct move storered[100000];  // array for storing red moves
 struct move storeblue[100000]; // array for storing blue moves
@@ -600,39 +601,74 @@ int check_possible_jump_specific(int arr[10][10], int player_no, int x, int y) /
 
     return possible_jump;
 }
-void review(int redmoves , int bluemoves, struct move storered[100000],struct move storeblue[100000])
+void review(int redmoves, int bluemoves, struct move storered[100000], struct move storeblue[100000])
 {
-  int i=0;
-  int x1,y1,x2,y2;
-  int copy[10][10]; // creating a new board
-  MakeBoard(copy);
+    int i = 0, k, j = 0;
+    int x1, y1, x2, y2;
+    int copy[10][10]; // creating a new board
+    MakeBoard(copy);
 
-  while(i<redmoves)
-  {
-     x1= storered[i].p1;
-     y1= storered[i].p2;
-     x2= storered[i].n1;
-     y2 =storered[i].n2;
-
-    Logic(1,x1,x2,y1,y2,copy); // play red move
-    PrintBoard(copy);
-
-    if(i < bluemoves)
+    while (i < redmoves || j < bluemoves)
     {
-     x1= storeblue[i].p1;
-     y1= storeblue[i].p2;
-     x2= storeblue[i].n1;
-     y2 =storeblue[i].n2;
+        if (i < redmoves)
+        {
+            x1 = storered[i].p1;
+            y1 = storered[i].p2;
+            x2 = storered[i].n1;
+            y2 = storered[i].n2;
+            i++;
+            Logic(1, x1, x2, y1, y2, copy); // play red move
+            PrintBoard(copy);
 
-     Logic(2,x1,x2,y1,y2,copy); // play blue move
-     PrintBoard(copy);
+            if (i < redmoves)
+            {
+                while (storered[i].mj == 1)
+                {
+                    x1 = storered[i].p1;
+                    y1 = storered[i].p2;
+                    x2 = storered[i].n1;
+                    y2 = storered[i].n2;
+
+                    Logic(1, x1, x2, y1, y2, copy); // play red move
+                    PrintBoard(copy);
+
+                    i++;
+                }
+            }
+        }
+        if (j < bluemoves)
+        {
+            x1 = storeblue[j].p1;
+            y1 = storeblue[j].p2;
+            x2 = storeblue[j].n1;
+            y2 = storeblue[j].n2;
+
+            Logic(2, x1, x2, y1, y2, copy); // play blue move
+            PrintBoard(copy);
+
+            j++;
+
+            if (j < bluemoves)
+            {
+                while (storeblue[j].mj == 1)
+                {
+                    x1 = storeblue[j].p1;
+                    y1 = storeblue[j].p2;
+                    x2 = storeblue[j].n1;
+                    y2 = storeblue[j].n2;
+
+                    j++;
+
+                    Logic(2, x1, x2, y1, y2, copy);
+                    PrintBoard(copy);
+                }
+            }
+        }
     }
-      i++;
-  }
-  /* Could u guys check the code and tell me if i am missing antything or if something is wrong. I'll merge 
-      it after its verfified*/ 
-
+    /* Could u guys check the code and tell me if i am missing antything or if something is wrong. I'll merge 
+      it after its verfified*/
 }
+
 
 void undo(int k, int redmoves, int bluemoves, struct move storered[100000], struct move storeblue[100000]) // k represents the number of moves the player wants to undo
 {                                                                                                          // redmoves and bluemoves represent the total moves made by player 1 and player 2 resp.
