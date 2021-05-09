@@ -800,6 +800,15 @@ void UserInput_new() //accepts user inputs and generates coordinates
                 printf("Enter the number of moves you would like to undo:");
                 int num_moves; // number of moves to undo
                 scanf("%d", &num_moves);
+                if (num_moves % 2 == 1)
+                {
+                    if (player_no == 1)
+                    {
+                        player_no = 2;
+                    }
+                    else
+                        player_no = 1;
+                }
                 printf("\nIf Player 1 agrees to undo %d moves, enter 1, else 0:", num_moves);
                 scanf("%d", &p1);
                 printf("If Player 2 agrees to undo %d moves, enter 1, else 0:", num_moves);
