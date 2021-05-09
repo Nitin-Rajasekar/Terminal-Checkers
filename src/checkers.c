@@ -893,7 +893,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
             }
         }
     }
-    printf("Sorry player %d, you have no moves left, game over....\n");
+    printf("Sorry player %d, you have no moves left, game over....\n",player_no);
 }
 
 void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn falls earlier
