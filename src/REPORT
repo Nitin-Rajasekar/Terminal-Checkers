@@ -6,7 +6,7 @@ CONTRIBUTORS :
 AMEYA SHARMA        - 2020101059
 EVURI INDRA DEEPIKA - 2020101090
 VANSHPREET KOHLI     -2020114014
-NITIN RAJASEKHAR     - 2020101117
+NITIN RAJASEKAR     - 2020101117
 ROHAN NAIN           - 2020102023
 
 DATA STRUCTURES USED :
@@ -31,6 +31,41 @@ FUNCTIONS AND THE DATA STRUCTURES USED :
 - Reverse
 - Review
 - all_possible_moves
+
+//my (Nitin's) part-
+created the user_input() function, the function that controls how the players interact with the board, which has to perform various functions like
+taking in inputs appropriately from the user, ensuring move validity, making sure that a player cannot play a non-jump move when he can make
+a jump, ensuring that during multiple jumps only the same coin can be used, terminating the current move on the creation of a king,and correctly
+giving players the opportunity to make multiple jumps when necessary by accordingly manipulating the transfer of control between players .
+To accomplish these requirements, two separate functions were written, check_possible_jump, to check if a player can make a jump in his next turn, and
+check_possible_jump_specific, which checks if a piece at a particular position has the possibilty to jump .
+Created a mechanism to inform a player that they had lost when they had no valid moves to play, and a function check_if_player_lost was written 
+to serve this purpose .
+The workings of some of the implemented mechanisms are illustrated below-
+
+Ensuring that a player must make a jump when he has the opportunity to-
+
+//Pic 1
+
+Awarding of multiple jumps to players-
+
+//Pic 2
+
+Ensuring the same coin must be used during a multiple jump-
+
+//Pic 3
+
+Automatically informing a player when they cannot make any more moves and have lost
+
+//Pic 4
+
+The data structure used was the double-dimensional array representing the checkers board .
+Due to the board having fixed dimensions, the above functionalities and functions check_possible_jump, check_possible_jump_specific and Check_if_player_lost which
+involve traversing the board or fixed squares around pieces, run in constant time .
+
+
+
+
 
 
 
