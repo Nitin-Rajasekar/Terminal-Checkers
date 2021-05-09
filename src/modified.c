@@ -908,6 +908,10 @@ void UserInput_new() //accepts user inputs and generates coordinates
                 multiple_jump = 1;
                 x_store = x2;
                 y_store = y2;
+                if(player_no==1)
+                redmoves++;
+                else if(player_no==2)
+                bluemoves++;
             }
             else
             {
