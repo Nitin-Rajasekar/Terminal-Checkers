@@ -828,6 +828,17 @@ void UserInput_new() //accepts user inputs and generates coordinates
                 Instructions();
             }
         }
+        else if (c1<65||c1>72||c2<65||c2>72)
+        {
+            printf("Invalid input\n");
+            continue;
+        }
+         else if (y1<1||y1>8||y2<1||y2>8)
+        {
+            printf("Invalid input\n");
+            continue;
+        }
+        
         else
         {
             while (getchar() != '\n') //flush buffer
