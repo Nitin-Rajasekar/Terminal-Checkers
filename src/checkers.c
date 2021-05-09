@@ -3,16 +3,17 @@
 #include <string.h>
 #include <wchar.h>
 
-struct move
+struct move // stores the moves of a player
 {
-    int p1;
+    int p1; // p1,p2 - initial positions
     int p2;
-    int n1;
+    int n1; //n1,n2 - final positions
     int n2;
-    int mj;
-};                             // storing the initial and final places
-struct move storered[100000];  // array for storing red moves
-struct move storeblue[100000]; // array for storing blue moves
+    int mj; // keeps track if multiple jump is possible
+};     
+
+struct move storered[100000];  // array for storing player1's moves
+struct move storeblue[100000]; // array for storing player2's moves
 int jump_made;
 void MakeBoard(int arr[10][10])
 {
@@ -151,12 +152,14 @@ void reset() // call reset to reset the colour to white
         }
     }
  /*********************************************************************************************************************************/
- /****************************************** End of colour functions **************************************************************/ 
+ /****************************************** End of colour functions **************************************************************/
+
 void storage(int x1, int y1, int x2, int y2, int redmoves, int bluemoves, int player, int multiple_jump)
 {
-    if (player == 1)
+    /* redmoves corresponds to 1's moves and blue moves corresponds to player 2's moves*/
+    if (player == 1) 
     {
-        storered[redmoves].p1 = x1;
+        storered[redmoves].p1 = x1; // storing 1's moves
         storered[redmoves].p2 = y1;
         storered[redmoves].n1 = x2;
         storered[redmoves].n2 = y2;
@@ -165,7 +168,7 @@ void storage(int x1, int y1, int x2, int y2, int redmoves, int bluemoves, int pl
         redmoves++;
     }
 
-    if (player == 2)
+    if (player == 2)  // storing 2's moves
     {
         storeblue[bluemoves].p1 = x1;
         storeblue[bluemoves].p2 = y1;
@@ -604,12 +607,12 @@ int check_possible_jump_specific(int arr[10][10], int player_no, int x, int y) /
 }
 void review(int redmoves, int bluemoves, struct move storered[100000], struct move storeblue[100000])
 {
-    int i = 0, k, j = 0;
+    int i = 0, j = 0; // i keeps trck of 1's moves j keeps trak of 2's
     int x1, y1, x2, y2;
     int copy[10][10]; // creating a new board
     MakeBoard(copy);
 
-    while (i < redmoves || j < bluemoves)
+    while (i < redmoves || j < bluemoves) //redmoves = player1's moves
     {
         if (i < redmoves)
         {
@@ -618,12 +621,12 @@ void review(int redmoves, int bluemoves, struct move storered[100000], struct mo
             x2 = storered[i].n1;
             y2 = storered[i].n2;
             i++;
-            Logic(1, x1, x2, y1, y2, copy); // play red move
+            Logic(1, x1, x2, y1, y2, copy); // play player1's moves
             PrintBoard(copy);
 
-            if (i < redmoves)
+            if (i < redmoves) // if there is a multiple jump happening
             {
-                while (storered[i].mj == 1)
+                while (storered[i].mj == 1) 
                 {
                     x1 = storered[i].p1;
                     y1 = storered[i].p2;
@@ -637,7 +640,7 @@ void review(int redmoves, int bluemoves, struct move storered[100000], struct mo
                 }
             }
         }
-        if (j < bluemoves)
+        if (j < bluemoves) // blue movers = player2's moves
         {
             x1 = storeblue[j].p1;
             y1 = storeblue[j].p2;
@@ -649,7 +652,7 @@ void review(int redmoves, int bluemoves, struct move storered[100000], struct mo
 
             j++;
 
-            if (j < bluemoves)
+            if (j < bluemoves) // if there is a multiple jump happening
             {
                 while (storeblue[j].mj == 1)
                 {
@@ -660,14 +663,13 @@ void review(int redmoves, int bluemoves, struct move storered[100000], struct mo
 
                     j++;
 
-                    Logic(2, x1, x2, y1, y2, copy);
+                    Logic(2, x1, x2, y1, y2, copy);//play the move
                     PrintBoard(copy);
                 }
             }
         }
     }
-    /* Could u guys check the code and tell me if i am missing antything or if something is wrong. I'll merge 
-      it after its verfified*/
+   
 }
 
 
@@ -1060,10 +1062,8 @@ int main()
 
     printf("____________ENTER X0 X0 FOR INSTRUCTIONS AND OTHER FUNCTIONS ______________\n");
     reset();
-    /* Note-It looks a bit messy need to change it a little bit */
+   
     UserInput_new();
 }
-
-
 
 
