@@ -185,7 +185,7 @@ void Instructions()
     printf("TO VIEW THE RULES PRESS V\n");
     printf("TO UNDO ANY NUMBER OF MOVES PRESS U \n");
     printf("TO FIND ALL POSSIBLE MOVES FOR NEXT K MOVES PRESS W \n");
-    printf("TO VIEW THE INSTRUCTIONS PRESS U\n");
+    printf("TO VIEW THE INSTRUCTIONS PRESS Z\n");
 }
 
 void PrintBoard(int arr[10][10])
