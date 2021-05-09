@@ -869,7 +869,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
                 printf("How many next possible moves would you like to see, enter the number:");
                 int n; // The number of next possible moves user wants to see
                 scanf("%d", &n);
-                //all_possible_moves(); // need to create
+                KPossibleMoves(arr,player_no,n);
             }
             else if (ch == 'Z')
             {
@@ -1028,6 +1028,194 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
                     }
                 }
                 /*Need to insert code here for possible jumps. A little more complicated because multiple jumps.*/
+                if (Logic(player,j,j-2,i,i-2,copy)){          //note that Logic also transforms the board
+                    char x1 = j + 64;
+                    char x2 = j-2 + 64;                       //converting coordinates to input's format
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i-2); //one jump made, gotta check for others now
+                    int ypos = i-2, xpos = j - 2;             //current position of piece
+                    while (check_possible_jump_specific(copy,player,ypos,xpos)){
+                        if (Logic(player,xpos,xpos+2,ypos,ypos+2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos+2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            xpos+=2;
+                            ypos+=2;
+                        }
+                        else if (Logic(player,xpos,xpos+2,ypos,ypos-2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos+2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            xpos+=2;
+                            ypos-=2;
+                        }
+                        else if (Logic(player,xpos,xpos-2,ypos,ypos-2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos-2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            xpos-=2;
+                            ypos-=2;
+                        }
+                        else if (Logic(player,xpos,xpos-2,ypos,ypos+2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos-2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            xpos-=2;
+                            ypos+=2;
+                        }
+                    }
+                    int player2;
+                    if (player==1) player2 = 2;
+                    else player2 = 1;
+                    KPossibleMoves(copy,player2,k-1);
+                }
+                for (int x=0;x<10;x++)
+                {
+                    for (int y=0;y<10;y++)
+                    {
+                        copy[x][y]=arr[x][y];   //resetting the copy
+                    }
+                }
+                if (Logic(player,j,j-2,i,i+2,copy)){          //note that Logic also transforms the board
+                    char x1 = j + 64;
+                    char x2 = j-2 + 64;                       //converting coordinates to input's format
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i+2); //one jump made, gotta check for others now
+                    int ypos = i+2, xpos = j - 2;             //current position of piece
+                    while (check_possible_jump_specific(copy,player,ypos,xpos)){
+                        if (Logic(player,xpos,xpos+2,ypos,ypos+2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos+2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            xpos+=2;
+                            ypos+=2;
+                        }
+                        else if (Logic(player,xpos,xpos+2,ypos,ypos-2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos+2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            xpos+=2;
+                            ypos-=2;
+                        }
+                        else if (Logic(player,xpos,xpos-2,ypos,ypos-2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos-2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            xpos-=2;
+                            ypos-=2;
+                        }
+                        else if (Logic(player,xpos,xpos-2,ypos,ypos+2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos-2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            xpos-=2;
+                            ypos+=2;
+                        }
+                    }
+                    int player2;
+                    if (player==1) player2 = 2;
+                    else player2 = 1;
+                    KPossibleMoves(copy,player2,k-1);
+                }
+                for (int x=0;x<10;x++)
+                {
+                    for (int y=0;y<10;y++)
+                    {
+                        copy[x][y]=arr[x][y];   //resetting the copy
+                    }
+                }
+                if (Logic(player,j,j+2,i,i+2,copy)){          //note that Logic also transforms the board
+                    char x1 = j + 64;
+                    char x2 = j+2 + 64;                       //converting coordinates to input's format
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i+2); //one jump made, gotta check for others now
+                    int ypos = i+2, xpos = j + 2;             //current position of piece
+                    while (check_possible_jump_specific(copy,player,ypos,xpos)){
+                        if (Logic(player,xpos,xpos+2,ypos,ypos+2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos+2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            xpos+=2;
+                            ypos+=2;
+                        }
+                        else if (Logic(player,xpos,xpos+2,ypos,ypos-2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos+2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            xpos+=2;
+                            ypos-=2;
+                        }
+                        else if (Logic(player,xpos,xpos-2,ypos,ypos-2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos-2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            xpos-=2;
+                            ypos-=2;
+                        }
+                        else if (Logic(player,xpos,xpos-2,ypos,ypos+2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos-2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            xpos-=2;
+                            ypos+=2;
+                        }
+                    }
+                    int player2;
+                    if (player==1) player2 = 2;
+                    else player2 = 1;
+                    KPossibleMoves(copy,player2,k-1);
+                }
+                for (int x=0;x<10;x++)
+                {
+                    for (int y=0;y<10;y++)
+                    {
+                        copy[x][y]=arr[x][y];   //resetting the copy
+                    }
+                }
+                if (Logic(player,j,j+2,i,i-2,copy)){          //note that Logic also transforms the board
+                    char x1 = j + 64;
+                    char x2 = j+2 + 64;                       //converting coordinates to input's format
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i-2); //one jump made, gotta check for others now
+                    int ypos = i-2, xpos = j + 2;             //current position of piece
+                    while (check_possible_jump_specific(copy,player,ypos,xpos)){
+                        if (Logic(player,xpos,xpos+2,ypos,ypos+2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos+2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            xpos+=2;
+                            ypos+=2;
+                        }
+                        else if (Logic(player,xpos,xpos+2,ypos,ypos-2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos+2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            xpos+=2;
+                            ypos-=2;
+                        }
+                        else if (Logic(player,xpos,xpos-2,ypos,ypos-2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos-2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            xpos-=2;
+                            ypos-=2;
+                        }
+                        else if (Logic(player,xpos,xpos-2,ypos,ypos+2,copy)){
+                            char xinit = xpos + 64;
+                            char xfinal = xpos-2 + 64;
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            xpos-=2;
+                            ypos+=2;
+                        }
+                    }
+                    int player2;
+                    if (player==1) player2 = 2;
+                    else player2 = 1;
+                    KPossibleMoves(copy,player2,k-1);
+                }
+                for (int x=0;x<10;x++)
+                {
+                    for (int y=0;y<10;y++)
+                    {
+                        copy[x][y]=arr[x][y];   //resetting the copy
+                    }
+                }
             }
         }
     }
