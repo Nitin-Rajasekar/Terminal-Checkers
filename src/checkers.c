@@ -152,30 +152,31 @@ void reset() // call reset to reset the colour to white
     }
  /*********************************************************************************************************************************/
  /****************************************** End of colour functions **************************************************************/ 
-void storage(int x1,int y1,int x2,int y2,int redmoves,int bluemoves,int player)
+void storage(int x1, int y1, int x2, int y2, int redmoves, int bluemoves, int player, int multiple_jump)
 {
     if (player == 1)
     {
-       storered[redmoves].p1 = x1;
-       storered[redmoves].p2 = y1;
-       storered[redmoves].n1 = x2;
-       storered[redmoves].n2 = y2;
+        storered[redmoves].p1 = x1;
+        storered[redmoves].p2 = y1;
+        storered[redmoves].n1 = x2;
+        storered[redmoves].n2 = y2;
+        storered[redmoves].mj = multiple_jump;
 
-       redmoves++;
+        redmoves++;
     }
-
 
     if (player == 2)
     {
-       storeblue[bluemoves].p1 = x1;
-       storeblue[bluemoves].p2 = y1;
-       storeblue[bluemoves].n1 = x2;
-       storeblue[bluemoves].n2 = y2;
+        storeblue[bluemoves].p1 = x1;
+        storeblue[bluemoves].p2 = y1;
+        storeblue[bluemoves].n1 = x2;
+        storeblue[bluemoves].n2 = y2;
+        storered[redmoves].mj = multiple_jump;
 
-       bluemoves++;
+        bluemoves++;
     }
-
 }
+
 
 
 void Instructions()
