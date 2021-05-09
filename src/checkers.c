@@ -908,7 +908,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
                 }
             }
             int valid = Logic(player_no, x1, x2, y1, y2, arr); // Plays the move, stores "valid"
-            storage(x1, y1, x2, y2, redmoves, bluemoves, player_no);  // storing all the moves to be used in other functions
+            storage(x1, y1, x2, y2, redmoves, bluemoves, player_no,multiple_jump);  // storing all the moves to be used in other functions
             if (valid == 1)
                 PrintBoard(arr); // Prints the board
             else
