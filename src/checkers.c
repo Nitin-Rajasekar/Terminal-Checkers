@@ -1037,28 +1037,28 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
                         if (Logic(player,xpos,xpos+2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos+=2;
                             ypos+=2;
                         }
                         else if (Logic(player,xpos,xpos+2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos+=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos-=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos-=2;
                             ypos+=2;
                         }
@@ -1084,28 +1084,28 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
                         if (Logic(player,xpos,xpos+2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos+=2;
                             ypos+=2;
                         }
                         else if (Logic(player,xpos,xpos+2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos+=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos-=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos-=2;
                             ypos+=2;
                         }
@@ -1131,28 +1131,28 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
                         if (Logic(player,xpos,xpos+2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos+=2;
                             ypos+=2;
                         }
                         else if (Logic(player,xpos,xpos+2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos+=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos-=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos-=2;
                             ypos+=2;
                         }
@@ -1178,28 +1178,28 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
                         if (Logic(player,xpos,xpos+2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos+=2;
                             ypos+=2;
                         }
                         else if (Logic(player,xpos,xpos+2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos+=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos-=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2,copy);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos-=2;
                             ypos+=2;
                         }
