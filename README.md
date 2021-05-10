@@ -16,3 +16,40 @@ being that one can copy them and paste them into the terminal to view the output
 up the terminal as well as the text file.
 
 The game ends when one of the users has no pieces left, or has no possible moves to make.
+
+Additional notes on the output of the "K possible moves" function:
+The blank lines here are significant. For an input K, you will likely see K moves being labelled without
+any line breaks (if it's more than K, it's because the moves involve jumps). That means they are successive
+moves. Following that, before you encounter consecutive lines without line breaks, will be several 
+line-separated moves. All of these moves are substitutes for the last move. The same applies to all the 
+clusters of lines you will find. 
+
+Here is an dummy output to illustrate what this means. Say, K = 3:
+
+A
+B
+C
+
+D
+
+E
+
+F
+G
+
+H
+
+I
+
+J
+
+K
+L
+M
+
+N
+
+Here, A is the first move, and B is a possible move after A. C, D, E are the possible moves after B. F is a
+possible move after A, and G, H, I, J are possible moves after F. When you encounter KLM (size of cluster 
+of lines = K), it means all the possible moves starting with the move "A" have been exhausted. Similarly, L
+is a possible move after K, M and N are possible moves after L, and so on.
