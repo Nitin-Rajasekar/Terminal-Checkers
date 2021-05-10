@@ -814,7 +814,7 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
                 if (Logic(player,j,j+1,i,i+1,copy)){         //note that Logic also transforms the board
                     char x1 = j + 64;
                     char x2 = j+1 + 64;                      //converting coordinates to input's format
-                    printf("%c%d %c%d\n",x1,i,x2,i+1);
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i+1);
                     int player2;
                     if (player==1) player2 = 2;
                     else player2 = 1;
@@ -830,7 +830,7 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
                 if (Logic(player,j,j+1,i,i-1,copy)){         //note that Logic also transforms the board
                     char x1 = j + 64;
                     char x2 = j+1 + 64;                      //converting coordinates to input's format
-                    printf("%c%d %c%d\n",x1,i,x2,i-1);
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i-1);
                     int player2;
                     if (player==1) player2 = 2;
                     else player2 = 1;
@@ -846,7 +846,7 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
                 if (Logic(player,j,j-1,i,i+1,copy)){         //note that Logic also transforms the board
                     char x1 = j + 64;
                     char x2 = j-1 + 64;                      //converting coordinates to input's format
-                    printf("%c%d %c%d\n",x1,i,x2,i+1);
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i+1);
                     int player2;
                     if (player==1) player2 = 2;
                     else player2 = 1;
@@ -862,7 +862,7 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
                 if (Logic(player,j,j-1,i,i-1,copy)){         //note that Logic also transforms the board
                     char x1 = j + 64;
                     char x2 = j-1 + 64;                      //converting coordinates to input's format
-                    printf("%c%d %c%d\n",x1,i,x2,i-1);
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i-1);
                     int player2;
                     if (player==1) player2 = 2;
                     else player2 = 1;
@@ -879,34 +879,34 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
                 if (Logic(player,j,j-2,i,i-2,copy)){          //note that Logic also transforms the board
                     char x1 = j + 64;
                     char x2 = j-2 + 64;                       //converting coordinates to input's format
-                    printf("%c%d %c%d\n",x1,i,x2,i-2); //one jump made, gotta check for others now
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i-2); //one jump made, gotta check for others now
                     int ypos = i-2, xpos = j - 2;             //current position of piece
                     while (check_possible_jump_specific(copy,player,ypos,xpos)){
                         if (Logic(player,xpos,xpos+2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos+=2;
                             ypos+=2;
                         }
                         else if (Logic(player,xpos,xpos+2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos+=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos-=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos-=2;
                             ypos+=2;
                         }
@@ -926,34 +926,34 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
                 if (Logic(player,j,j-2,i,i+2,copy)){          //note that Logic also transforms the board
                     char x1 = j + 64;
                     char x2 = j-2 + 64;                       //converting coordinates to input's format
-                    printf("%c%d %c%d\n",x1,i,x2,i+2); //one jump made, gotta check for others now
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i+2); //one jump made, gotta check for others now
                     int ypos = i+2, xpos = j - 2;             //current position of piece
                     while (check_possible_jump_specific(copy,player,ypos,xpos)){
                         if (Logic(player,xpos,xpos+2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos+=2;
                             ypos+=2;
                         }
                         else if (Logic(player,xpos,xpos+2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos+=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos-=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos-=2;
                             ypos+=2;
                         }
@@ -973,34 +973,34 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
                 if (Logic(player,j,j+2,i,i+2,copy)){          //note that Logic also transforms the board
                     char x1 = j + 64;
                     char x2 = j+2 + 64;                       //converting coordinates to input's format
-                    printf("%c%d %c%d\n",x1,i,x2,i+2); //one jump made, gotta check for others now
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i+2); //one jump made, gotta check for others now
                     int ypos = i+2, xpos = j + 2;             //current position of piece
                     while (check_possible_jump_specific(copy,player,ypos,xpos)){
                         if (Logic(player,xpos,xpos+2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos+=2;
                             ypos+=2;
                         }
                         else if (Logic(player,xpos,xpos+2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos+=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos-=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos-=2;
                             ypos+=2;
                         }
@@ -1020,34 +1020,34 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
                 if (Logic(player,j,j+2,i,i-2,copy)){          //note that Logic also transforms the board
                     char x1 = j + 64;
                     char x2 = j+2 + 64;                       //converting coordinates to input's format
-                    printf("%c%d %c%d\n",x1,i,x2,i-2); //one jump made, gotta check for others now
+                    fprintf(moves,"%c%d %c%d\n",x1,i,x2,i-2); //one jump made, gotta check for others now
                     int ypos = i-2, xpos = j + 2;             //current position of piece
                     while (check_possible_jump_specific(copy,player,ypos,xpos)){
                         if (Logic(player,xpos,xpos+2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos+=2;
                             ypos+=2;
                         }
                         else if (Logic(player,xpos,xpos+2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos+2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos+=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos-2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos-2);
                             xpos-=2;
                             ypos-=2;
                         }
                         else if (Logic(player,xpos,xpos-2,ypos,ypos+2,copy)){
                             char xinit = xpos + 64;
                             char xfinal = xpos-2 + 64;
-                            printf("%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
+                            fprintf(moves,"%c%d %c%d\n",xinit,ypos,xfinal,ypos+2);
                             xpos-=2;
                             ypos+=2;
                         }
@@ -1067,7 +1067,8 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
             }
         }
     }
-    else printf("\n");   //when k reaches 0, it'll print an extra line to show k possible sequential moves.
+    else fprintf(moves,"\n");   //when k reaches 0, it'll print an extra line to show k possible sequential moves.
+    fclose(moves);
 }
 
 void UserInput_new() //accepts user inputs and generates coordinates
