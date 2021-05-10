@@ -692,7 +692,7 @@ void undo(int k, int redmoves, int bluemoves, struct move storered[100000], stru
             y2 = storered[i].n2;
 
             Logic(1, x1, x2, y1, y2, board);    // play player 1's move
-            PrintBoard(board);
+            //PrintBoard(board);
 
             i++;
         }
@@ -705,11 +705,12 @@ void undo(int k, int redmoves, int bluemoves, struct move storered[100000], stru
             y2 = storeblue[j].n2;
 
             Logic(2, x1, x2, y1, y2, board); // play player 2's move
-            PrintBoard(board);
+            //PrintBoard(board);
             j++;
         }
         
     }
+    PrintBoard(board);
 }
 
 void rules()
