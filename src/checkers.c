@@ -791,158 +791,6 @@ int check_if_player_lost(int arr[10][10], int player_no)
     }
     return flag;
 }
-void UserInput_new() //accepts user inputs and generates coordinates
-{
-    int arr[10][10];
-    int player_no = 1;
-    int result_obtained = 0;
-    
-    char c1, c2;
-    
-    int x1, x2, y1, y2;
-    int x_store, y_store;
-    int multiple_jump = 0; //becomes 1 when on a multiple jump
-    
-    MakeBoard(arr);
-    PrintBoard(arr);
-    int redmoves = 0;
-        int bluemoves = 0;
-
-    while (check_if_player_lost(arr, player_no) != 1) //game ends when a player has no moves left
-    {
-        
-        
-    retry:
-        printf("Player %d enter starting and destination positions: ", player_no);
-
-        scanf(" %c%d %c%d", &c1, &y1, &c2, &y2);
-
-        if (c1 == 'X' && y1 == 0 && c2 == 'X' && y2 == 0) // If thre user enters X0 X0 then they get access to the functions
-        {
-            char ch;
-            Instructions();    // To help the user we are displaying the Instructions once again
-            printf("Enter :"); // User needs to enter the char corresponding to the function they need to access
-            scanf(" %c", &ch);
-
-            if (ch == 'R') // If the function needed is review the whole game from the starting
-            {
-                review(redmoves , bluemoves, storered,storeblue );
-            }
-            else if (ch == 'V') // To see the rules of the game
-            {
-                rules(); 
-            }
-            else if (ch == 'U') // To undo moves,here u can undo any no of moves,user needs to enter the number of undos they want to do
-            {
-                int p1, p2;
-                printf("\n");
-                printf("Enter the number of moves you would like to undo:");
-                int num_moves; // number of moves to undo
-                scanf("%d", &num_moves);
-                if (num_moves % 2 == 1)
-                {
-                    if (player_no == 1)
-                    {
-                        player_no = 2;
-                    }
-                    else
-                        player_no = 1;
-                }
-                printf("\nIf Player 1 agrees to undo %d moves, enter 1, else 0:", num_moves);
-                scanf("%d", &p1);
-                printf("If Player 2 agrees to undo %d moves, enter 1, else 0:", num_moves);
-                scanf("%d", &p2);
-                if (p1 == 1 && p2 == 1)
-                {
-                    undo(num_moves, redmoves, bluemoves, storered, storeblue);
-                }
-                else
-                {
-                    printf("\n");
-                    red();
-                    printf("Both players didn't agree to undo moves, So back to the game.\n\n");
-                    reset();
-                }
-            }
-            else if (ch == 'W') // To see the next possible moves
-            {
-                printf("How many next possible moves would you like to see, enter the number:");
-                int n; // The number of next possible moves user wants to see
-                scanf("%d", &n);
-                KPossibleMoves(arr,player_no,n);
-            }
-            else if (ch == 'Z')
-            {
-                Instructions();
-            }
-        }
-        else if (c1<65||c1>72||c2<65||c2>72)
-        {
-            printf("Invalid input\n");
-            continue;
-        }
-         else if (y1<1||y1>8||y2<1||y2>8)
-        {
-            printf("Invalid input\n");
-            continue;
-        }
-        
-        else
-        {
-            while (getchar() != '\n') //flush buffer
-                ;
-
-            x1 = c1 - 64; //converting from A-H to 1-8
-            x2 = c2 - 64;
-
-            //printf("Co-ordinates are %d %d %d %d\n", x1, y1, x2, y2);
-            if (check_possible_jump(arr, player_no) == 1 && ((x1 - x2) != 2 && (x2 - x1) != 2))
-            {
-                printf("If there is an opportunity to jump, one must take it\n");
-                continue;
-            }
-            if (multiple_jump == 1)
-            {
-                if (x1 != x_store || y1 != y_store)
-                {
-                    printf("In a multiple jump you can only jump with the coin you had used in your previous turn\n");
-                    continue;
-                }
-            }
-            int valid = Logic(player_no, x1, x2, y1, y2, arr); // Plays the move, stores "valid"
-            storage(x1, y1, x2, y2, redmoves, bluemoves, player_no,multiple_jump);  // storing all the moves to be used in other functions
-            if (valid == 1)
-                PrintBoard(arr); // Prints the board
-            else
-            {
-                goto retry;
-            }
-
-            if (player_no == 1 && (jump_made == 0 || check_possible_jump_specific(arr, 1, y2, x2) == 0)) //if a player makes a jump AND could make another he should, so he gets another turn
-            {
-                player_no = 2; // go to the next player
-                redmoves++;    // increasing the number of moves made by red
-
-            } //jump_made is global, its 1 if a jump has been made
-            else if (player_no == 2 && (jump_made == 0 || check_possible_jump_specific(arr, 2, y2, x2) == 0))
-            {
-                player_no = 1; // go to the next player
-                bluemoves++;   // increasing the number of moves made by blue
-            }
-            if (jump_made == 1 && check_possible_jump_specific(arr, player_no, y2, x2) == 1) //player is going to get another turn
-            {
-                multiple_jump = 1;
-                x_store = x2;                   //storing to ensure the same coin is used in the multiple jump
-                y_store = y2;
-            }
-            else
-            {
-                multiple_jump = 0;
-            }
-        }
-    }
-    printf("Sorry player %d, you have no moves left, game over....\n",player_no);
-}
 
 void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn falls earlier
 {                                                 //lol this brute force is so gonna kill my terminal
@@ -1222,6 +1070,159 @@ void KPossibleMoves(int arr[10][10],int player,int k) //player = whose turn fall
     else fprintf(moves,"\n");   //when k reaches 0, it'll print an extra line to show k possible sequential moves.
 }
 
+void UserInput_new() //accepts user inputs and generates coordinates
+{
+    int arr[10][10];
+    int player_no = 1;
+    int result_obtained = 0;
+    
+    char c1, c2;
+    
+    int x1, x2, y1, y2;
+    int x_store, y_store;
+    int multiple_jump = 0; //becomes 1 when on a multiple jump
+    
+    MakeBoard(arr);
+    PrintBoard(arr);
+    int redmoves = 0;
+        int bluemoves = 0;
+
+    while (check_if_player_lost(arr, player_no) != 1) //game ends when a player has no moves left
+    {
+        
+        
+    retry:
+        printf("Player %d enter starting and destination positions: ", player_no);
+
+        scanf(" %c%d %c%d", &c1, &y1, &c2, &y2);
+
+        if (c1 == 'X' && y1 == 0 && c2 == 'X' && y2 == 0) // If thre user enters X0 X0 then they get access to the functions
+        {
+            char ch;
+            Instructions();    // To help the user we are displaying the Instructions once again
+            printf("Enter :"); // User needs to enter the char corresponding to the function they need to access
+            scanf(" %c", &ch);
+
+            if (ch == 'R') // If the function needed is review the whole game from the starting
+            {
+                review(redmoves , bluemoves, storered,storeblue );
+            }
+            else if (ch == 'V') // To see the rules of the game
+            {
+                rules(); 
+            }
+            else if (ch == 'U') // To undo moves,here u can undo any no of moves,user needs to enter the number of undos they want to do
+            {
+                int p1, p2;
+                printf("\n");
+                printf("Enter the number of moves you would like to undo:");
+                int num_moves; // number of moves to undo
+                scanf("%d", &num_moves);
+                if (num_moves % 2 == 1)
+                {
+                    if (player_no == 1)
+                    {
+                        player_no = 2;
+                    }
+                    else
+                        player_no = 1;
+                }
+                printf("\nIf Player 1 agrees to undo %d moves, enter 1, else 0:", num_moves);
+                scanf("%d", &p1);
+                printf("If Player 2 agrees to undo %d moves, enter 1, else 0:", num_moves);
+                scanf("%d", &p2);
+                if (p1 == 1 && p2 == 1)
+                {
+                    undo(num_moves, redmoves, bluemoves, storered, storeblue);
+                }
+                else
+                {
+                    printf("\n");
+                    red();
+                    printf("Both players didn't agree to undo moves, So back to the game.\n\n");
+                    reset();
+                }
+            }
+            else if (ch == 'W') // To see the next possible moves
+            {
+                printf("How many next possible moves would you like to see, enter the number:");
+                int n; // The number of next possible moves user wants to see
+                scanf("%d", &n);
+                KPossibleMoves(arr,player_no,n);
+            }
+            else if (ch == 'Z')
+            {
+                Instructions();
+            }
+        }
+        else if (c1<65||c1>72||c2<65||c2>72)
+        {
+            printf("Invalid input\n");
+            continue;
+        }
+         else if (y1<1||y1>8||y2<1||y2>8)
+        {
+            printf("Invalid input\n");
+            continue;
+        }
+        
+        else
+        {
+            while (getchar() != '\n') //flush buffer
+                ;
+
+            x1 = c1 - 64; //converting from A-H to 1-8
+            x2 = c2 - 64;
+
+            //printf("Co-ordinates are %d %d %d %d\n", x1, y1, x2, y2);
+            if (check_possible_jump(arr, player_no) == 1 && ((x1 - x2) != 2 && (x2 - x1) != 2))
+            {
+                printf("If there is an opportunity to jump, one must take it\n");
+                continue;
+            }
+            if (multiple_jump == 1)
+            {
+                if (x1 != x_store || y1 != y_store)
+                {
+                    printf("In a multiple jump you can only jump with the coin you had used in your previous turn\n");
+                    continue;
+                }
+            }
+            int valid = Logic(player_no, x1, x2, y1, y2, arr); // Plays the move, stores "valid"
+            storage(x1, y1, x2, y2, redmoves, bluemoves, player_no,multiple_jump);  // storing all the moves to be used in other functions
+            if (valid == 1)
+                PrintBoard(arr); // Prints the board
+            else
+            {
+                goto retry;
+            }
+
+            if (player_no == 1 && (jump_made == 0 || check_possible_jump_specific(arr, 1, y2, x2) == 0)) //if a player makes a jump AND could make another he should, so he gets another turn
+            {
+                player_no = 2; // go to the next player
+                redmoves++;    // increasing the number of moves made by red
+
+            } //jump_made is global, its 1 if a jump has been made
+            else if (player_no == 2 && (jump_made == 0 || check_possible_jump_specific(arr, 2, y2, x2) == 0))
+            {
+                player_no = 1; // go to the next player
+                bluemoves++;   // increasing the number of moves made by blue
+            }
+            if (jump_made == 1 && check_possible_jump_specific(arr, player_no, y2, x2) == 1) //player is going to get another turn
+            {
+                multiple_jump = 1;
+                x_store = x2;                   //storing to ensure the same coin is used in the multiple jump
+                y_store = y2;
+            }
+            else
+            {
+                multiple_jump = 0;
+            }
+        }
+    }
+    printf("Sorry player %d, you have no moves left, game over....\n",player_no);
+}
+
 int main()
 {
     printf("\n\n");
@@ -1253,5 +1254,3 @@ int main()
    
     UserInput_new();
 }
-
-
