@@ -505,7 +505,7 @@ int check_possible_jump(int arr[10][10], int player_no) //utility function to ch
 {
     int possible_jump = 0; //becomes 1 if a jump is available
     int i, j;
-    if (player_no == 1)
+    if (player_no == 1)     //traverses the required neighbouring positions and determines whether a jump is available
     {
         for (i = 0; i < 10; i++)
         {
@@ -731,10 +731,10 @@ int check_if_player_lost(int arr[10][10], int player_no)
 {
     int flag = 1; //becomes zero if player has a move left;
     int i, j;
-    if (check_possible_jump(arr, player_no) == 1)
+    if (check_possible_jump(arr, player_no) == 1)        //checks if player has a jump move
         flag = 0;
 
-    if (player_no == 1)
+    if (player_no == 1)                                 //now checks if player has a normal move
     {
         for (i = 0; i < 10; i++)
         {
@@ -808,7 +808,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
     int redmoves = 0;
         int bluemoves = 0;
 
-    while (check_if_player_lost(arr, player_no) != 1) //result_obtained becomes 1 when a player has won
+    while (check_if_player_lost(arr, player_no) != 1) //game ends when a player has no moves left
     {
         
         
@@ -932,7 +932,7 @@ void UserInput_new() //accepts user inputs and generates coordinates
             if (jump_made == 1 && check_possible_jump_specific(arr, player_no, y2, x2) == 1) //player is going to get another turn
             {
                 multiple_jump = 1;
-                x_store = x2;
+                x_store = x2;                   //storing to ensure the same coin is used in the multiple jump
                 y_store = y2;
             }
             else
